@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>mutexlock</title>
+    <link>https://mutexlock.com/</link>
+    <description>Recent content on mutexlock</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language><atom:link href="https://mutexlock.com/index.xml" rel="self" type="application/rss+xml" />
+  </channel>
+</rss>
