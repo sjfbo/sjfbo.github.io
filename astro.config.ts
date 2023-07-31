@@ -8,7 +8,7 @@ import remarkUnwrapImages from "remark-unwrap-images";
 // https://astro.build/config
 export default defineConfig({
 	// ! Please remember to replace the following site property with your own domain
-	site: "https://astro-theme-cactus.netlify.app/",
+	site: "https://sjfbo.github.io",
 	markdown: {
 		remarkPlugins: [remarkUnwrapImages],
 		shikiConfig: {
