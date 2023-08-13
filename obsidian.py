@@ -37,6 +37,7 @@ layout: post
 title: "{title}"
 date:  {jekyll_date}
 tags:  {category.lower()}
+use_math: true
 ---
 
 """
