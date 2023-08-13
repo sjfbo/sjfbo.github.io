@@ -227,21 +227,21 @@ ul.post-list li small {
     flex: 0 0 115px;
 }
 
-/* blog posts */
-ul.blog-posts {
+/* notes posts */
+ul.notes-posts {
     list-style-type: none;
     padding: unset;
 }
 
-ul.blog-posts li {
+ul.notes-posts li {
     display: flex;
 }
 
-ul.blog-posts li span {
+ul.notes-posts li span {
     flex: 0 0 130px;
 }
 
-ul.blog-posts li a:visited {
+ul.notes-posts li a:visited {
     color: #8b6fcb;
 }
 
@@ -317,11 +317,11 @@ ul.discover-posts li small a {
 
 
 
-ul.blog-posts {
+ul.notes-posts {
     padding-bottom: 0.61803rem;
 }
 
-ul.blog-posts li {
+ul.notes-posts li {
     padding-top: 0.61803rem;
 }
 

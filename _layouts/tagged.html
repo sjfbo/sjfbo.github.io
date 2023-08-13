@@ -13,10 +13,10 @@ layout: compress
     {% if site.tags[page.slug] %}
     <p>
         Here be writings, tagged as <b>"{{ page.slug }}"</b>.<br>
-        <small><a href="{{ site.baseurl }}{{ site.Blog }}">Remove filter</a></small>
+        <small><a href="{{ site.baseurl }}{{ site.Notes }}">Remove filter</a></small>
     </p>
 
-    <ul class="blog-posts">
+    <ul class="notes-posts">
         {% assign post_list = '' | split: ',' %}
         {% for post in site.tags[page.slug] %}
         {% for tag in post.tags %}

@@ -2,7 +2,6 @@ import os
 import datetime
 import re
 
-# Path to your Obsidian vault and the root folder
 OBSIDIAN_PATH = "/Users/sjfbo/Documents/Mind"
 JEKYLL_POSTS_PATH = "/Users/sjfbo/dev/sjfbo.github.io/_posts"
 
@@ -25,7 +24,7 @@ def create_jekyll_post(category, date_str, content):
     filename = f"{date_obj.strftime('%Y-%m-%d')}-{category.lower().replace(' ', '-')}.md"
     
     # Generate the post title and date for Jekyll front matter
-    title = f"Notes from the week of the {ordinal(date_obj.day)} of {date_obj.strftime('%B')}, {date_obj.year}"
+    title = f"Notes — week of {date_obj.strftime('%d/%m/%Y')}"
     jekyll_date = f"{date_obj.strftime('%Y-%m-%d')} 10:00:00 +0000"
 
     # Remove the Obsidian metadata from the content
@@ -36,8 +35,8 @@ def create_jekyll_post(category, date_str, content):
 layout: post
 title: "{title}"
 date:  {jekyll_date}
-tags:  {category.lower()}
-use_math: true
+tags:  
+- {category.lower()}
 ---
 
 """

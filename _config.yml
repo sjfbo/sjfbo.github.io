@@ -1,15 +1,9 @@
 ###########
 # site.title
 
-title: sjfbo
-description: a minimal, text focused blog theme
-# baseurl: "/jekyllBear" # the subpath of your site, e.g. /blog/
-url: "https://sjfbo.github.io" # the base hostname & protocol for your site
-# host: 0.0.0.0
-
-
-#########################
-# more settings
+title: "@sjfbo"
+description: a minimal, text focus blog
+url: "https://sjfbo.github.io"
 
 plugins:
   - jekyll-redirect-from
@@ -19,14 +13,14 @@ whitelist:
 
 markdown: kramdown
 
-# compress_html:
-#   clippings: all
-#   comments: [""]
-#   endings: [html, head, body, li, dt, dd, rt, rp, optgroup, option, colgroup, caption, thead, tbody, tfoot, tr, td, th]
-#   profile: false
-#   blanklines: false
-#   ignore:
-#     envs: []
+compress_html:
+  clippings: all
+  comments: [""]
+  endings: [html, head, body, li, dt, dd, rt, rp, optgroup, option, colgroup, caption, thead, tbody, tfoot, tr, td, th]
+  profile: false
+  blanklines: false
+  ignore:
+    envs: []
 
 # sass:
 #   sass_dir: css
@@ -45,7 +39,7 @@ defaults:
       layout: tagged
 
 # baseurl: ""
-permalink: /blog/:slug
+permalink: /notes/:slug
 timezone: America/New_York
 future: false
 
@@ -55,7 +49,7 @@ exclude:
 
 exclude: [vendor]
 
-Blog: /blog
+Notes: /notes
 
 # Add general links to site pages here
 # links:
