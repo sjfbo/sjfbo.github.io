@@ -1,0 +1,4 @@
+---
+slug: mathematics
+name: Mathematics
+---
