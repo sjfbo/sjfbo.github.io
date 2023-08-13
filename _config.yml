@@ -3,7 +3,7 @@
 
 title: "@sjfbo"
 description: a minimal, text focus blog
-url: "https://sjfbo.github.io"
+url: "https://sjfbo.com"
 
 plugins:
   - jekyll-redirect-from
