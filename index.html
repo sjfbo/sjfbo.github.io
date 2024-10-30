@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>sjfbo - homepage</title>
+        <style>
+            body {
+                font-family: "Lucida Console", monospace;
+                font-size: 1.125em;
+                color: #111;
+                background-color: #fff;
+                max-width: 1280px;
+                margin: 0 auto;
+                padding: 0 5%;
+                box-sizing: border-box;
+            }
+            .landing {
+                display: flex;
+                flex-direction: column;
+                align-items: center; /* Center-align all elements within landing */
+                justify-content: center;
+                min-height: 10vh;
+                text-align: center;
+            }
+            .separator {
+                letter-spacing: -0.1em;
+            }
+            hr {
+                border: none;
+                height: 2px;
+                background-color: lightgrey;
+                width: 100%;
+                margin: 1.5em 0;
+            }
+            .quiet,
+            .links-container a {
+                color: inherit;
+            }
+            .links-container {
+                font-size: 0.9em;
+                margin: 0.2em auto;
+                display: flex;
+                gap: 1em;
+                justify-content: center;
+            }
+            .links-container a {
+                text-decoration: none;
+                padding: 0.2em 0.5em;
+                transition:
+                    background-color 0.3s,
+                    color 0.3s;
+            }
+            .links-container a:hover {
+                background-color: #111;
+                color: #fff;
+            }
+            .title {
+                font-size: 3em;
+                line-height: 1.2;
+                font-weight: bold;
+                padding: 0.2em 0.5em;
+                transition:
+                    background-color 0.3s,
+                    color 0.3s;
+            }
+
+            .title:hover {
+                background-color: #111;
+                color: #fff;
+            }
+            .content-section {
+                width: 100%;
+                padding: 0.5em 0;
+                text-align: left;
+            }
+            .content-section h2 {
+                margin-top: 0;
+            }
+        </style>
+    </head>
+    <body>
+        <main class="landing">
+            <pre class="title" aria-label="Title">@sjfbo</pre>
+            <nav class="links-container" aria-label="Main navigation">
+                <a href="#home" aria-label="Home">home</a
+                ><span class="separator">|</span>
+                <a href="#notes" aria-label="Notes">notes</a
+                ><span class="separator">|</span>
+                <a href="#projects" aria-label="Projects">projects</a
+                ><span class="separator">|</span>
+                <a href="#contact" aria-label="Contact">contact</a>
+            </nav>
+
+            <hr />
+
+            <section class="content-section">
+                <h2 id="home">home</h2>
+                <p>stuff</p>
+            </section>
+
+            <hr />
+
+            <section class="content-section">
+                <h2 id="notes">notes</h2>
+                <p>more stuff</p>
+            </section>
+        </main>
+    </body>
+</html>
