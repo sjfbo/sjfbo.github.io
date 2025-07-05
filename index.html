@@ -1,1 +1,199 @@
-hu
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>numb.rs</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #0a0a0a;
+            color: #ffffff;
+            font-family: 'Courier New', monospace;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .container {
+            text-align: center;
+            animation: fadeIn 2s ease-in;
+        }
+
+        .ascii-art {
+            font-size: 14px;
+            line-height: 1.1;
+            margin-bottom: 2rem;
+            white-space: pre;
+            animation: glitch 3s infinite;
+        }
+
+        .title {
+            font-size: 24px;
+            margin-bottom: 1rem;
+            opacity: 0;
+            animation: typewriter 2s steps(20) 1s forwards;
+        }
+
+        .subtitle {
+            font-size: 14px;
+            opacity: 0.7;
+            margin-bottom: 2rem;
+            animation: fadeIn 3s ease-in 2s forwards;
+            opacity: 0;
+        }
+
+        .cursor {
+            animation: blink 1s infinite;
+        }
+
+        .matrix-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.1;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes typewriter {
+            from { width: 0; opacity: 1; }
+            to { width: 100%; opacity: 1; }
+        }
+
+        @keyframes blink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0; }
+        }
+
+        @keyframes glitch {
+            0%, 90%, 100% { transform: translate(0); }
+            91% { transform: translate(-1px, -1px); }
+            92% { transform: translate(1px, 1px); }
+            93% { transform: translate(-1px, 1px); }
+            94% { transform: translate(1px, -1px); }
+        }
+
+        .floating-symbols {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .symbol {
+            position: absolute;
+            color: #ffffff;
+            opacity: 0.1;
+            animation: float 20s linear infinite;
+            font-family: 'Courier New', monospace;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+            10% { opacity: 0.1; }
+            90% { opacity: 0.1; }
+            100% { transform: translateY(-100px) rotate(360deg); opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+    <div class="floating-symbols"></div>
+    
+    <div class="container">
+        <div class="ascii-art">
+    ╭─────────────────────────────────────╮
+    │  ∫∞   {code}   ∇f(x)   [ML]   ∑    │
+    │     ┌─────────────────────────┐     │
+    │     │  ████████████████████   │     │
+    │     │  ██ ∂/∂x ██ λ ██ Θ ██   │     │
+    │     │  ████████████████████   │     │
+    │     └─────────────────────────┘     │
+    │  {algorithms}   ∆   f(n)   [SWE]    │
+    ╰─────────────────────────────────────╯
+        </div>
+        
+        <div class="title">
+            numb.rs<span class="cursor">_</span>
+        </div>
+        
+        <div class="subtitle">
+            software engineering • machine learning • mathematics
+        </div>
+    </div>
+
+    <script>
+        // Create floating mathematical and programming symbols
+        const symbols = ['∂', '∇', '∫', '∑', '∞', 'λ', 'Θ', '∆', '{', '}', '[', ']', '(', ')', 'π', 'σ', 'μ', 'α', 'β', 'γ'];
+        const floatingContainer = document.querySelector('.floating-symbols');
+
+        function createFloatingSymbol() {
+            const symbol = document.createElement('div');
+            symbol.className = 'symbol';
+            symbol.textContent = symbols[Math.floor(Math.random() * symbols.length)];
+            symbol.style.left = Math.random() * 100 + '%';
+            symbol.style.fontSize = (Math.random() * 20 + 10) + 'px';
+            symbol.style.animationDuration = (Math.random() * 15 + 15) + 's';
+            symbol.style.animationDelay = Math.random() * 5 + 's';
+            
+            floatingContainer.appendChild(symbol);
+            
+            // Remove symbol after animation
+            setTimeout(() => {
+                if (symbol.parentNode) {
+                    symbol.parentNode.removeChild(symbol);
+                }
+            }, 25000);
+        }
+
+        // Create symbols periodically
+        setInterval(createFloatingSymbol, 2000);
+        
+        // Create initial symbols
+        for (let i = 0; i < 5; i++) {
+            setTimeout(createFloatingSymbol, i * 400);
+        }
+
+        // Add subtle matrix rain effect
+        function createMatrixRain() {
+            const chars = '01αβγδεζηθικλμνξοπρστυφχψω∂∇∫∑∞';
+            const container = document.querySelector('.matrix-bg') || document.body;
+            
+            for (let i = 0; i < 50; i++) {
+                const rain = document.createElement('div');
+                rain.style.position = 'absolute';
+                rain.style.left = Math.random() * 100 + '%';
+                rain.style.top = '-20px';
+                rain.style.color = '#ffffff';
+                rain.style.fontSize = '12px';
+                rain.style.opacity = '0.05';
+                rain.style.fontFamily = 'Courier New, monospace';
+                rain.textContent = chars[Math.floor(Math.random() * chars.length)];
+                rain.style.animation = `float ${Math.random() * 10 + 10}s linear infinite`;
+                rain.style.animationDelay = Math.random() * 5 + 's';
+                
+                container.appendChild(rain);
+            }
+        }
+
+        // Initialize matrix rain
+        setTimeout(createMatrixRain, 1000);
+    </script>
+</body>
+</html>
