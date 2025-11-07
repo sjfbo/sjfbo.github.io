@@ -1,13 +1,13 @@
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
   buildTableOfContents();
   applyHtmlIncludes();
   initMermaid();
-  renderMermaid();
+  await renderMermaid();
 });
 
-window.addEventListener('load', () => {
+window.addEventListener('load', async () => {
   initMermaid();
-  renderMermaid();
+  await renderMermaid();
 });
 
 function buildTableOfContents() {
@@ -73,7 +73,7 @@ function applyHtmlIncludes() {
       const html = await res.text();
       el.innerHTML = html;
       // Render mermaid diagrams within this include
-      try { renderMermaid(el); } catch (_) {}
+      await renderMermaid(el);
     } catch (e) {
       el.innerHTML = `<div class="muted">Failed to load include: ${path}</div>`;
     }
@@ -88,31 +88,37 @@ function initMermaid() {
     window.mermaid.initialize({
       startOnLoad: false,
       theme: prefersDark ? 'dark' : 'default',
+      securityLevel: 'loose',
     });
     window.__mermaid_inited = true;
   }
 }
 
-function renderMermaid(scope) {
+async function renderMermaid(scope) {
   const m = window.mermaid;
   if (!m) return;
   try {
     if (typeof m.run === 'function') {
       // v10+
       if (scope) {
-        // render only within scope by temporarily scoping query
         const nodes = scope.querySelectorAll('.mermaid');
-        if (nodes.length) m.run({ nodes });
+        if (nodes.length) {
+          await m.run({ nodes }).catch(err => {
+            console.warn('Mermaid render error:', err);
+          });
+        }
       } else {
-        m.run(); // default: render all .mermaid
+        await m.run().catch(err => {
+          console.warn('Mermaid render error:', err);
+        });
       }
     } else if (typeof m.init === 'function') {
       // older API
       const nodes = scope ? scope.querySelectorAll('.mermaid') : document.querySelectorAll('.mermaid');
       m.init(undefined, nodes);
     }
-  } catch (_) {
-    // no-op
+  } catch (err) {
+    console.warn('Mermaid error:', err);
   }
 }
 

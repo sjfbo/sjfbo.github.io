@@ -18,20 +18,12 @@ Traditional `read()` + `write()` copies data twice: disk → kernel buffer, then
 sendfile(sock_fd, file_fd, &offset, length);
 ```
 
-<div class="mermaid">
+```mermaid
 flowchart LR
-  D[Disk] --> KPC[Kernel page cache]
-  KPC -->|sendfile/splice| SB[Socket buffer]
+  D[Disk] --> KPC["Kernel page cache"]
+  KPC -->|sendfile/splice| SB["Socket buffer"]
   SB --> NIC[NIC]
-  subgraph user["user space"]
-    APP[App]
-  end
-  subgraph kernel["kernel space"]
-    KPC
-    SB
-  end
-  APP -. avoids copy .-> SB
-</div>
+```
 
 ## When it helps
 

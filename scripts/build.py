@@ -2,6 +2,7 @@
 import os
 import re
 import sys
+import html
 import datetime
 from pathlib import Path
 
@@ -117,7 +118,42 @@ def build_article(md_path: Path, tpl: str):
   tags = fm.get("tags", "")
   description = fm.get("summary") or ""
   slug = fm.get("slug") or md_path.stem
+  
+  # Extract mermaid blocks before markdown processing
+  mermaid_blocks = []
+  mermaid_counter = 0
+  
+  def replace_mermaid(match):
+    nonlocal mermaid_counter
+    content = match.group(1)
+    placeholder = f'<div data-mermaid-placeholder="{mermaid_counter}"></div>'
+    mermaid_blocks.append(content)
+    mermaid_counter += 1
+    return placeholder
+  
+  # Replace mermaid code fences with placeholders
+  body_md = re.sub(
+    r'```mermaid\n(.*?)```',
+    replace_mermaid,
+    body_md,
+    flags=re.DOTALL
+  )
+  
   html_body = render_markdown(body_md)
+  
+  # Replace placeholders with actual mermaid divs
+  for i, mermaid_content in enumerate(mermaid_blocks):
+    placeholder_pattern = rf'<div\s+data-mermaid-placeholder="{i}"></div>'
+    mermaid_html = f'<div class="mermaid">\n{mermaid_content.strip()}\n</div>'
+    # Replace placeholder div (may be wrapped in <p> by markdown)
+    html_body = re.sub(
+      rf'<p>\s*{placeholder_pattern}\s*</p>',
+      mermaid_html,
+      html_body,
+      flags=re.IGNORECASE
+    )
+    # Also handle standalone placeholder
+    html_body = re.sub(placeholder_pattern, mermaid_html, html_body, flags=re.IGNORECASE)
 
   # ensure sidebar include stub exists
   ensure_include_stub(slug)
