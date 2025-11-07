@@ -1,167 +1,64 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@sjfbo</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>sjfbo — systems programming</title>
+    <meta name="description" content="Systems programming notes, articles, and resources by sjfbo.">
+    <link rel="stylesheet" href="/assets/styles.css">
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="container">
+        <a class="site-title" href="/">sjfbo</a>
+        <nav class="site-nav">
+          <a href="/articles/">Articles</a>
+          <a href="/resources.html">Resources</a>
+          <a href="/about.html">About</a>
+          <a href="https://github.com/sjfbo" target="_blank" rel="noopener">GitHub</a>
+        </nav>
+      </div>
+    </header>
 
-        body {
-            background: #0a0a0a;
-            color: #ffffff;
-            font-family: 'Courier New', monospace;
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;
-        }
+    <main class="container">
+      <section class="hero">
+        <h1>Systems programming notes by <span class="accent">sjfbo</span></h1>
+        <p class="subtitle">Writing about operating systems, compilers, performance, and low‑level tooling.</p>
+      </section>
 
-        .container {
-            text-align: center;
-            animation: fadeIn 2s ease-in;
-        }
+      <section>
+        <h2>Latest articles</h2>
+        <ul class="list">
+          <li class="list-item">
+            <a class="post" href="/articles/zero-copy-io.html">
+              <span class="post-title">Zero‑copy I/O: when copies really matter</span>
+              <span class="post-meta">Oct 2025 · OS · Performance</span>
+            </a>
+          </li>
+        </ul>
+        <p><a class="more" href="/articles/">Browse all articles →</a></p>
+      </section>
 
-        .ascii-art {
-            font-size: 14px;
-            line-height: 1.1;
-            margin-bottom: 2rem;
-            white-space: pre;
-            opacity: 0.8;
-        }
+      <section>
+        <h2>Resources</h2>
+        <p>A living list of systems papers, books, and tools I recommend.</p>
+        <p><a class="more" href="/resources.html">See resources →</a></p>
+      </section>
+    </main>
 
-        .title {
-            font-size: 28px;
-            margin-bottom: 1rem;
-            opacity: 0;
-            animation: typewriter 2s steps(20) 1s forwards, glitch 3s infinite 3s;
-        }
-
-        .subtitle {
-            font-size: 14px;
-            opacity: 0.6;
-            animation: fadeIn 3s ease-in 2s forwards;
-            opacity: 0;
-        }
-
-        .cursor {
-            animation: blink 1s infinite;
-        }
-
-        .floating-symbols {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: -1;
-        }
-
-        .symbol {
-            position: absolute;
-            color: #ffffff;
-            opacity: 0.1;
-            animation: float 20s linear infinite;
-            font-family: 'Courier New', monospace;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        @keyframes typewriter {
-            from { width: 0; opacity: 1; }
-            to { width: 100%; opacity: 1; }
-        }
-
-        @keyframes blink {
-            0%, 50% { opacity: 1; }
-            51%, 100% { opacity: 0; }
-        }
-
-        @keyframes float {
-            0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
-            10% { opacity: 0.1; }
-            90% { opacity: 0.1; }
-            100% { transform: translateY(-100px) rotate(360deg); opacity: 0; }
-        }
-
-        @keyframes glitch {
-            0%, 90%, 100% { transform: translate(0); }
-            91% { transform: translate(-1px, -1px); }
-            92% { transform: translate(1px, 1px); }
-            93% { transform: translate(-1px, 1px); }
-            94% { transform: translate(1px, -1px); }
-        }
-
-        @media (max-width: 600px) {
-            .ascii-art {
-                font-size: 12px;
-            }
-            .title {
-                font-size: 24px;
-            }
-        }
-    </style>
-</head>
-<body>
-    <div class="floating-symbols"></div>
-    
-    <div class="container">
-        <div class="ascii-art">┌─────────────┐
-│  ○ → ○ → ○  │
-│  ↓   ↓   ↓  │
-│  ○ → ○ → y  │
-│   ∇θ ← ℓ    │
-└─────────────┘</div>
-        
-        <div class="title">
-            @sjfbo<span class="cursor">_</span>
+    <footer class="site-footer">
+      <div class="container footer-grid">
+        <div>
+          <strong>sjfbo</strong>
+          <div class="muted">Systems programming • Minimalist notes</div>
         </div>
-        
-        <div class="subtitle">
-            ml engineer
+        <div class="links">
+          <a href="https://github.com/sjfbo" target="_blank" rel="noopener">GitHub</a>
+          <!-- Add more links you want people to reach you at -->
         </div>
-    </div>
-
-    <script>
-        // Create floating ML/AI symbols
-        const symbols = ['θ', '∇', 'σ', 'ℓ', 'η', 'W', 'b', 'x', 'y', 'ŷ', 'α', 'β', 'λ', 'μ', '∂', '→', '↓', '○'];
-        const floatingContainer = document.querySelector('.floating-symbols');
-
-        function createFloatingSymbol() {
-            const symbol = document.createElement('div');
-            symbol.className = 'symbol';
-            symbol.textContent = symbols[Math.floor(Math.random() * symbols.length)];
-            symbol.style.left = Math.random() * 100 + '%';
-            symbol.style.fontSize = (Math.random() * 16 + 12) + 'px';
-            symbol.style.animationDuration = (Math.random() * 10 + 15) + 's';
-            symbol.style.animationDelay = Math.random() * 5 + 's';
-            
-            floatingContainer.appendChild(symbol);
-            
-            // Remove symbol after animation
-            setTimeout(() => {
-                if (symbol.parentNode) {
-                    symbol.parentNode.removeChild(symbol);
-                }
-            }, 25000);
-        }
-
-        // Create symbols periodically
-        setInterval(createFloatingSymbol, 3000);
-        
-        // Create initial symbols
-        for (let i = 0; i < 3; i++) {
-            setTimeout(createFloatingSymbol, i * 1000);
-        }
-    </script>
-</body>
+      </div>
+    </footer>
+  </body>
 </html>
+
+
