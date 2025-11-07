@@ -37,7 +37,12 @@
 <pre><code>// pseudo: send file contents directly to socket
 // kernel moves pages from page cache to socket buffers
 sendfile(sock_fd, file_fd, &offset, length);</code></pre>
-<p><div class="mermaid"> flowchart LR D[Disk] --> KPC[Kernel page cache] KPC -->|sendfile/splice| SB[Socket buffer] SB --> NIC[NIC] subgraph user["user space"] APP[App] end subgraph kernel["kernel space"] KPC SB end APP -. avoids copy .-> SB </div></p>
+<div class="mermaid">
+flowchart LR
+  D[Disk] --> KPC["Kernel page cache"]
+  KPC -->|sendfile/splice| SB["Socket buffer"]
+  SB --> NIC[NIC]
+</div>
 <h2>When it helps</h2>
 <ul>
 <li>Serving large static assets (e.g., CDN, file servers).</li>
