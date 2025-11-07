@@ -1,12 +1,19 @@
 document.addEventListener('DOMContentLoaded', () => {
   buildTableOfContents();
   applyHtmlIncludes();
+  initMermaid();
+  renderMermaid();
+});
+
+window.addEventListener('load', () => {
+  initMermaid();
+  renderMermaid();
 });
 
 function buildTableOfContents() {
   const article = document.querySelector('.article-main');
   if (!article) return;
-  const tocContainer = document.querySelector('.card.toc .toc-list');
+  const tocContainer = document.querySelector('.toc .toc-list');
   if (!tocContainer) return;
 
   const headings = article.querySelectorAll('h2, h3');
@@ -65,10 +72,50 @@ function applyHtmlIncludes() {
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
       const html = await res.text();
       el.innerHTML = html;
+      // Render mermaid diagrams within this include
+      try { renderMermaid(el); } catch (_) {}
     } catch (e) {
       el.innerHTML = `<div class="muted">Failed to load include: ${path}</div>`;
     }
   });
 }
+
+function initMermaid() {
+  const mermaidAvailable = typeof window.mermaid !== 'undefined' && typeof window.mermaid.initialize === 'function';
+  if (!mermaidAvailable) return;
+  if (!window.__mermaid_inited) {
+    const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+    window.mermaid.initialize({
+      startOnLoad: false,
+      theme: prefersDark ? 'dark' : 'default',
+    });
+    window.__mermaid_inited = true;
+  }
+}
+
+function renderMermaid(scope) {
+  const m = window.mermaid;
+  if (!m) return;
+  try {
+    if (typeof m.run === 'function') {
+      // v10+
+      if (scope) {
+        // render only within scope by temporarily scoping query
+        const nodes = scope.querySelectorAll('.mermaid');
+        if (nodes.length) m.run({ nodes });
+      } else {
+        m.run(); // default: render all .mermaid
+      }
+    } else if (typeof m.init === 'function') {
+      // older API
+      const nodes = scope ? scope.querySelectorAll('.mermaid') : document.querySelectorAll('.mermaid');
+      m.init(undefined, nodes);
+    }
+  } catch (_) {
+    // no-op
+  }
+}
+
+// removed sidebar/annotation logic
 
 
