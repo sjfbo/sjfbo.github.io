@@ -206,4 +206,92 @@ pre {
   text-decoration: underline;
 }
 
+.site-nav a,
+.footer-grid .links a {
+  text-transform: lowercase;
+  letter-spacing: 0.01em;
+}
+
+.article-layout {
+  display: grid;
+  grid-template-columns: 1fr 280px;
+  gap: 24px;
+  align-items: start;
+}
+
+.article-aside {
+  position: sticky;
+  top: 88px;
+}
+
+@media (max-width: 960px) {
+  .article-layout {
+    grid-template-columns: 1fr;
+  }
+  .article-aside {
+    position: static;
+    top: auto;
+  }
+}
+
+.card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 16px;
+}
+
+.card + .card {
+  margin-top: 12px;
+}
+
+.card h3 {
+  margin: 0 0 8px;
+  font-size: 14px;
+  text-transform: lowercase;
+  color: var(--muted);
+  letter-spacing: 0.02em;
+}
+
+.card ul {
+  margin: 0;
+  padding-left: 18px;
+}
+
+.diagram {
+  height: 160px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px dashed var(--border);
+  border-radius: 8px;
+  color: var(--muted);
+}
+
+.toc-list,
+.toc-sublist {
+  list-style: none;
+  padding-left: 0;
+  margin: 0;
+}
+
+.toc-list > li {
+  margin: 6px 0;
+}
+
+.toc-sublist {
+  padding-left: 14px;
+  margin-top: 4px;
+}
+
+.toc-list a {
+  color: var(--muted);
+  text-decoration: none;
+}
+
+.toc-list a:hover {
+  color: var(--text);
+  text-decoration: underline;
+}
+
 

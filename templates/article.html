@@ -3,9 +3,10 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Articles — sjfbo</title>
-    <meta name="description" content="Articles by sjfbo">
+    <title>{{ title }} — sjfbo</title>
+    <meta name="description" content="{{ description }}">
     <link rel="stylesheet" href="/assets/styles.css">
+    <script src="/assets/site.js" defer></script>
   </head>
   <body>
     <header class="site-header">
@@ -20,19 +21,22 @@
       </div>
     </header>
 
-    <main class="container">
-      <div class="breadcrumbs"><a href="/">Home</a> / Articles</div>
-      <h1>Articles</h1>
-      <!-- all-posts:start -->
-        <ul class="list">
-          <li class="list-item">
-            <a class="post" href="/articles/zero-copy-io.html">
-              <span class="post-title">Zero‑copy I/O: when copies really matter</span>
-              <span class="post-meta">2025-10-01 · os, performance</span>
-            </a>
-          </li>
-        </ul>
-<!-- all-posts:end -->
+    <main class="container prose">
+      <div class="breadcrumbs"><a href="/">Home</a> / <a href="/articles/">Articles</a> / {{ title }}</div>
+      <h1>{{ title }}</h1>
+      <p class="muted">{{ date }}{{ tags_line }}</p>
+      <div class="article-layout">
+        <article class="article-main">
+{{ content }}
+        </article>
+        <aside class="article-aside">
+          <div class="card toc">
+            <h3>table of contents</h3>
+            <ul class="toc-list"></ul>
+          </div>
+          <div class="card" data-include="/includes/{{ slug }}-links.html"></div>
+        </aside>
+      </div>
     </main>
 
     <footer class="site-footer">
