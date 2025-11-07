@@ -18,6 +18,21 @@ Traditional `read()` + `write()` copies data twice: disk → kernel buffer, then
 sendfile(sock_fd, file_fd, &offset, length);
 ```
 
+<div class="mermaid">
+flowchart LR
+  D[Disk] --> KPC[Kernel page cache]
+  KPC -->|sendfile/splice| SB[Socket buffer]
+  SB --> NIC[NIC]
+  subgraph user["user space"]
+    APP[App]
+  end
+  subgraph kernel["kernel space"]
+    KPC
+    SB
+  end
+  APP -. avoids copy .-> SB
+</div>
+
 ## When it helps
 
 - Serving large static assets (e.g., CDN, file servers).
@@ -25,5 +40,7 @@ sendfile(sock_fd, file_fd, &offset, length);
 - Reducing cache pollution in data‑plane heavy services.
 
 It’s not always a win—zero‑copy can add constraints and interacts with TLS, transformations, and checksumming. Measure with your workload.
+
+<img src="https://via.placeholder.com/640x360.png?text=Path+diagram" alt="data path illustration">
 
 

@@ -39,7 +39,7 @@ body {
 }
 
 .container {
-  max-width: 720px;
+  max-width: 840px;
   margin: 0 auto;
   padding: 24px;
 }
@@ -212,33 +212,15 @@ pre {
   letter-spacing: 0.01em;
 }
 
-.article-layout {
-  display: grid;
-  grid-template-columns: 1fr 280px;
-  gap: 24px;
-  align-items: start;
-}
-
-.article-aside {
-  position: sticky;
-  top: 88px;
-}
-
-@media (max-width: 960px) {
-  .article-layout {
-    grid-template-columns: 1fr;
-  }
-  .article-aside {
-    position: static;
-    top: auto;
-  }
-}
+.article-layout { display: block; } /* deprecated */
+.article-aside { display: none; }   /* deprecated */
 
 .card {
   background: var(--card);
   border: 1px solid var(--border);
   border-radius: 12px;
   padding: 16px;
+  overflow: auto;
 }
 
 .card + .card {
@@ -259,7 +241,7 @@ pre {
 }
 
 .diagram {
-  height: 160px;
+  height: 220px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -267,6 +249,26 @@ pre {
   border-radius: 8px;
   color: var(--muted);
 }
+
+.prose img,
+.article-aside img,
+.article-aside svg {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 8px;
+}
+
+.mermaid {
+  display: block;
+  overflow: auto;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 8px;
+  background: var(--card);
+}
+
+.annotated-block { display: block; } /* deprecated */
 
 .toc-list,
 .toc-sublist {

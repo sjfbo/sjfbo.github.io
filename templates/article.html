@@ -6,6 +6,7 @@
     <title>{{ title }} — sjfbo</title>
     <meta name="description" content="{{ description }}">
     <link rel="stylesheet" href="/assets/styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js" defer></script>
     <script src="/assets/site.js" defer></script>
   </head>
   <body>
@@ -25,18 +26,13 @@
       <div class="breadcrumbs"><a href="/">Home</a> / <a href="/articles/">Articles</a> / {{ title }}</div>
       <h1>{{ title }}</h1>
       <p class="muted">{{ date }}{{ tags_line }}</p>
-      <div class="article-layout">
-        <article class="article-main">
-{{ content }}
-        </article>
-        <aside class="article-aside">
-          <div class="card toc">
-            <h3>table of contents</h3>
-            <ul class="toc-list"></ul>
-          </div>
-          <div class="card" data-include="/includes/{{ slug }}-links.html"></div>
-        </aside>
+      <div class="toc">
+        <h3>table of contents</h3>
+        <ul class="toc-list"></ul>
       </div>
+      <article class="article-main">
+{{ content }}
+      </article>
     </main>
 
     <footer class="site-footer">
