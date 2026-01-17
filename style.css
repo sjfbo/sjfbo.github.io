@@ -1,221 +1,216 @@
-/* Retro Academic Homepage Stylesheet */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 
 body {
-    font-family: Georgia, "Times New Roman", Times, serif;
-    line-height: 1.45;
-    max-width: 900px;
-    margin: 0 auto;
-    padding: 1em 2em;
-    color: #2C2416;
-    background: #FEFCF8;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, monospace;
+    background: #0a0a0a;
+    color: #e0e0e0;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+main {
+    text-align: center;
+    padding: 2rem;
+    width: 100%;
+    max-width: 700px;
 }
 
 h1 {
-    font-size: 1.8em;
-    margin-top: 0.5em;
-    margin-bottom: 0.3em;
-    font-weight: normal;
+    font-size: 3.5rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: #fff;
+    margin-bottom: 0.25rem;
 }
 
-h2 {
-    font-size: 1.3em;
-    margin-top: 2em;
-    margin-bottom: 0.8em;
-    font-weight: normal;
-    border-bottom: 1px solid #D4A574;
-    padding-bottom: 0.2em;
+.ascii {
+    font-family: monospace;
+    font-size: 1.2rem;
+    color: #555;
+    margin-bottom: 0.5rem;
+    line-height: 1.2;
+    animation: glow 2s ease-in-out infinite;
+}
+
+@keyframes glow {
+    0%, 100% {
+        color: #555;
+        text-shadow: none;
+    }
+    50% {
+        color: #666;
+        text-shadow: 0 0 4px rgba(255, 255, 255, 0.15);
+    }
+}
+
+.eye {
+    animation: eyeGlow 3s ease-in-out infinite;
+}
+
+@keyframes eyeGlow {
+    0%, 100% {
+        color: #555;
+        text-shadow: none;
+    }
+    50% {
+        color: #a33;
+        text-shadow: 0 0 6px rgba(200, 50, 50, 0.5);
+    }
+}
+
+.agent-note {
+    font-family: monospace;
+    font-size: 0.75rem;
+    color: #444;
+    margin-top: 2rem;
+    padding: 0.5rem 1rem;
+    border: 1px dashed #333;
+    display: inline-block;
+}
+
+.tagline-wrap {
+    display: inline-block;
+}
+
+.tagline {
+    font-size: 1.15rem;
+    color: #888;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+}
+
+.byline {
+    font-size: 0.8rem;
+    color: #555;
+    text-align: right;
+    margin-top: 0.2rem;
+}
+
+.links {
+    margin-top: 2rem;
+    display: flex;
+    gap: 2rem;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.links a {
+    color: #666;
+    text-decoration: none;
+    font-size: 0.9rem;
+    padding: 0.5rem 1rem;
+    position: relative;
+    transition: color 0.2s;
+}
+
+.links a::before,
+.links a::after {
+    content: '';
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    border: 1px solid #333;
+    transition: border-color 0.2s;
+}
+
+.links a::before {
+    top: 0;
+    left: 0;
+    border-right: none;
+    border-bottom: none;
+}
+
+.links a::after {
+    bottom: 0;
+    right: 0;
+    border-left: none;
+    border-top: none;
+}
+
+.links a:hover {
+    color: #fff;
+}
+
+.links a:hover::before,
+.links a:hover::after {
+    border-color: #666;
 }
 
 hr {
     border: none;
-    border-top: 1px solid #D4A574;
-    margin: 2em 0;
-    width: 100%;
+    border-top: 1px solid #222;
+    margin: 3rem 0;
 }
 
-h2:first-of-type {
-    margin-top: 1em;
-}
-
-h3 {
-    font-size: 1.1em;
-    margin-top: 1em;
-    margin-bottom: 0.3em;
-    font-weight: normal;
-}
-
-p {
-    margin: 0.8em 0;
-}
-
-ul, ol {
-    margin: 0.8em 0;
-    padding-left: 2em;
-}
-
-li {
-    margin: 0.4em 0;
-}
-
-a {
-    color: #8B4513;
-    text-decoration: underline;
-}
-
-a:visited {
-    color: #A0522D;
-    text-decoration: underline;
-}
-
-a:hover {
-    text-decoration: underline;
-}
-
-img {
-    border: 1px solid #D4A574;
-    max-width: 150px;
-}
-
-.headshot {
-    float: right;
-    margin: 0 0 1em 1em;
-}
-
-nav {
-    margin: 1.5em 0;
-    padding: 0.5em 0;
-    border-top: 1px solid #D4A574;
-    border-bottom: 1px solid #D4A574;
-}
-
-nav a {
-    margin-right: 1.5em;
-}
-
-footer {
-    margin-top: 3em;
-    padding-top: 1em;
-    border-top: 1px solid #D4A574;
-    font-size: 0.9em;
-    color: #8B7355;
-    text-align: center;
-}
-
-address {
-    font-style: normal;
-    margin: 1em 0;
-}
-
-small {
-    font-size: 0.9em;
-    color: #8B7355;
-}
-
-tt, .mono {
-    font-family: "Courier New", Courier, monospace;
-    font-size: 0.95em;
-}
-
-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin: 1em 0;
-}
-
-table th, table td {
-    padding: 0.5em;
+.projects {
     text-align: left;
-    border-bottom: 1px solid #E8D5B7;
 }
 
-table th {
-    font-weight: normal;
-    background: #F5E6D3;
+.category {
+    margin-bottom: 2.5rem;
 }
 
-details {
-    margin: 0.5em 0;
+.category:last-child {
+    margin-bottom: 0;
 }
 
-summary {
-    cursor: pointer;
-    color: #8B4513;
-    font-size: 0.9em;
+.category h2 {
+    font-size: 0.85rem;
+    font-weight: 400;
+    color: #666;
+    text-transform: lowercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 1rem;
 }
 
-summary:hover {
-    text-decoration: underline;
+.project {
+    margin-bottom: 2rem;
 }
 
-pre {
-    font-family: "Courier New", Courier, monospace;
-    font-size: 0.85em;
-    background: #F5E6D3;
-    padding: 1em;
-    overflow-x: auto;
-    border: 1px solid #E8D5B7;
+.project:last-child {
+    margin-bottom: 0;
 }
 
-.contact-block {
-    margin: 1em 0;
+.project h3 {
+    font-size: 1rem;
+    font-weight: 500;
+    color: #fff;
+    margin-bottom: 0.25rem;
 }
 
-.news-item {
-    margin: 0.5em 0;
-}
-
-.publication-item {
-    margin: 1em 0;
-}
-
-.publication-links {
-    font-size: 0.9em;
-    margin-top: 0.3em;
-}
-
-.publication-links a {
-    margin-right: 0.8em;
-}
-
-@media print {
-    body {
-        color: #000;
-        background: #fff;
-    }
-    
-    a {
-        color: #000;
-        text-decoration: underline;
-    }
-    
-    a:visited {
-        color: #000;
-        text-decoration: underline;
-    }
-    
-    nav {
-        display: none;
-    }
-    
-    img {
-        border: 1px solid #000;
-    }
-    
-    hr {
-        border-top: 1px solid #000;
-    }
+.project p {
+    font-size: 0.9rem;
+    color: #666;
 }
 
 @media (max-width: 600px) {
     body {
-        padding: 1em;
+        align-items: flex-start;
     }
-    
-    .headshot {
-        float: none;
-        display: block;
-        margin: 1em auto;
+
+    main {
+        padding: 3rem 1.5rem;
+    }
+
+    h1 {
+        font-size: 2.25rem;
+    }
+
+    .links {
+        gap: 1.5rem;
+    }
+
+    hr {
+        margin: 2rem 0;
+    }
+
+    .project {
+        margin-bottom: 1.5rem;
     }
 }
-
-
