@@ -67,10 +67,10 @@ h1 {
 .agent-note {
     font-family: monospace;
     font-size: 0.75rem;
-    color: #444;
+    color: #8a8463;
     margin-top: 2rem;
     padding: 0.5rem 1rem;
-    border: 1px dashed #333;
+    border: 1px dashed #5c5a4a;
     display: inline-block;
 }
 
