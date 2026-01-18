@@ -67,10 +67,10 @@ h1 {
 .agent-note {
     font-family: monospace;
     font-size: 0.75rem;
-    color: #8a8463;
+    color: #fff;
     margin-top: 2rem;
     padding: 0.5rem 1rem;
-    border: 1px dashed #5c5a4a;
+    border: 1px dashed #fff;
     display: inline-block;
 }
 
@@ -161,12 +161,14 @@ hr {
 }
 
 .category h2 {
-    font-size: 0.85rem;
-    font-weight: 400;
-    color: #666;
-    text-transform: lowercase;
-    letter-spacing: 0.1em;
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: #888;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
     margin-bottom: 1rem;
+    padding-left: 0.75rem;
+    border-left: 2px solid #a33;
 }
 
 .project {
