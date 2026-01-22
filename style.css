@@ -6,12 +6,13 @@
 
 body {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, monospace;
-    background: #0a0a0a;
+    background: radial-gradient(circle at top, rgba(32, 45, 80, 0.35), transparent 60%), #070708;
     color: #e0e0e0;
     min-height: 100vh;
     display: flex;
     align-items: center;
     justify-content: center;
+    overflow-x: hidden;
 }
 
 main {
@@ -19,6 +20,7 @@ main {
     padding: 2rem;
     width: 100%;
     max-width: 700px;
+    position: relative;
 }
 
 h1 {
@@ -27,6 +29,7 @@ h1 {
     letter-spacing: -0.02em;
     color: #fff;
     margin-bottom: 0.25rem;
+    text-shadow: 0 0 18px rgba(140, 198, 255, 0.3);
 }
 
 .ascii {
@@ -70,8 +73,10 @@ h1 {
     color: #fff;
     margin-top: 2rem;
     padding: 0.5rem 1rem;
-    border: 1px dashed #fff;
+    border: 1px dashed rgba(255, 255, 255, 0.4);
     display: inline-block;
+    background: rgba(4, 10, 22, 0.6);
+    box-shadow: 0 0 12px rgba(92, 120, 255, 0.2);
 }
 
 .tagline-wrap {
@@ -83,6 +88,153 @@ h1 {
     color: #888;
     text-transform: uppercase;
     letter-spacing: 0.2em;
+}
+
+.hero {
+    margin: 2.5rem 0 2rem;
+    padding: 2rem 1.5rem;
+    display: grid;
+    gap: 1.5rem;
+    justify-items: center;
+    border-radius: 18px;
+    background: linear-gradient(135deg, rgba(14, 20, 40, 0.85), rgba(6, 10, 20, 0.65));
+    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.45);
+    border: 1px solid rgba(72, 98, 170, 0.3);
+    position: relative;
+    overflow: hidden;
+}
+
+.hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at top right, rgba(126, 180, 255, 0.35), transparent 55%);
+    opacity: 0.8;
+    pointer-events: none;
+}
+
+.hero::after {
+    content: '';
+    position: absolute;
+    inset: -40%;
+    background: conic-gradient(from 120deg, rgba(88, 255, 214, 0.08), rgba(255, 120, 250, 0.1), rgba(88, 255, 214, 0.08));
+    animation: swirl 18s linear infinite;
+    opacity: 0.6;
+    pointer-events: none;
+}
+
+.hero-copy {
+    position: relative;
+    z-index: 1;
+}
+
+.hero-title {
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.35em;
+    color: rgba(185, 210, 255, 0.75);
+    margin-bottom: 0.6rem;
+}
+
+.hero-subtitle {
+    font-size: 1.1rem;
+    color: #e6f0ff;
+    max-width: 32ch;
+    line-height: 1.5;
+}
+
+.orbital {
+    position: relative;
+    width: 220px;
+    height: 220px;
+    display: grid;
+    place-items: center;
+    transform-style: preserve-3d;
+    animation: drift 12s ease-in-out infinite;
+    z-index: 1;
+}
+
+.orb {
+    position: absolute;
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 30% 30%, rgba(128, 255, 224, 0.95), rgba(90, 120, 255, 0.7), rgba(8, 12, 26, 0.8));
+    box-shadow: 0 0 30px rgba(124, 198, 255, 0.55), inset 0 0 18px rgba(14, 20, 40, 0.8);
+    animation: orbPulse 4.5s ease-in-out infinite;
+}
+
+.ring {
+    position: absolute;
+    width: 170px;
+    height: 170px;
+    border-radius: 50%;
+    border: 1px solid rgba(120, 180, 255, 0.35);
+    box-shadow: 0 0 15px rgba(80, 120, 255, 0.25);
+    transform-style: preserve-3d;
+    animation: spin 14s linear infinite;
+}
+
+.ring-1 {
+    transform: rotateX(70deg) rotateZ(0deg);
+}
+
+.ring-2 {
+    width: 210px;
+    height: 210px;
+    border-color: rgba(160, 255, 210, 0.25);
+    animation-duration: 18s;
+    transform: rotateY(70deg) rotateZ(20deg);
+}
+
+.ring-3 {
+    width: 140px;
+    height: 140px;
+    border-color: rgba(255, 170, 255, 0.25);
+    animation-duration: 11s;
+    transform: rotateX(30deg) rotateY(40deg);
+}
+
+.pulse {
+    position: absolute;
+    width: 130px;
+    height: 130px;
+    border-radius: 50%;
+    border: 1px dashed rgba(255, 255, 255, 0.15);
+    animation: pulse 6s ease-in-out infinite;
+}
+
+.particle {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.75);
+    box-shadow: 0 0 10px rgba(120, 200, 255, 0.6);
+}
+
+.particle-1 {
+    top: 12%;
+    left: 52%;
+    animation: float 6s ease-in-out infinite;
+}
+
+.particle-2 {
+    top: 68%;
+    left: 16%;
+    animation: float 7s ease-in-out infinite 1s;
+}
+
+.particle-3 {
+    top: 70%;
+    left: 78%;
+    animation: float 5s ease-in-out infinite 0.6s;
+}
+
+.particle-4 {
+    top: 35%;
+    left: 18%;
+    animation: float 8s ease-in-out infinite 1.3s;
 }
 
 .byline {
@@ -191,6 +343,66 @@ hr {
     color: #666;
 }
 
+@keyframes spin {
+    0% {
+        transform: rotateX(75deg) rotateZ(0deg);
+    }
+    100% {
+        transform: rotateX(75deg) rotateZ(360deg);
+    }
+}
+
+@keyframes drift {
+    0%, 100% {
+        transform: translateY(0px) rotateZ(0deg);
+    }
+    50% {
+        transform: translateY(-8px) rotateZ(6deg);
+    }
+}
+
+@keyframes orbPulse {
+    0%, 100% {
+        transform: scale(1);
+        box-shadow: 0 0 30px rgba(124, 198, 255, 0.55), inset 0 0 18px rgba(14, 20, 40, 0.8);
+    }
+    50% {
+        transform: scale(1.08);
+        box-shadow: 0 0 40px rgba(124, 198, 255, 0.8), inset 0 0 10px rgba(14, 20, 40, 0.5);
+    }
+}
+
+@keyframes pulse {
+    0%, 100% {
+        transform: scale(0.9);
+        opacity: 0.4;
+    }
+    50% {
+        transform: scale(1.1);
+        opacity: 0.8;
+    }
+}
+
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0px) translateX(0px);
+        opacity: 0.7;
+    }
+    50% {
+        transform: translateY(-10px) translateX(6px);
+        opacity: 1;
+    }
+}
+
+@keyframes swirl {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
 @media (max-width: 600px) {
     body {
         align-items: flex-start;
@@ -202,6 +414,30 @@ hr {
 
     h1 {
         font-size: 2.25rem;
+    }
+
+    .hero {
+        padding: 1.5rem 1rem;
+    }
+
+    .orbital {
+        width: 180px;
+        height: 180px;
+    }
+
+    .ring {
+        width: 140px;
+        height: 140px;
+    }
+
+    .ring-2 {
+        width: 170px;
+        height: 170px;
+    }
+
+    .ring-3 {
+        width: 120px;
+        height: 120px;
     }
 
     .links {
