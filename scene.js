@@ -15,10 +15,9 @@
     resize();
     window.addEventListener('resize', resize);
 
-    // Grid parameters - reduce for mobile performance
-    const isMobile = window.innerWidth < 600;
-    const gridSize = isMobile ? 25 : 40;
-    const scale = isMobile ? 12 : 15;
+    // Grid parameters
+    const gridSize = 40;
+    const scale = 15;
     let time = 0;
 
     // Loss function - creates interesting surface with local minima
@@ -65,19 +64,13 @@
         };
     }
 
-    // Mouse/touch tracking for subtle interaction
+    // Mouse tracking for subtle interaction
     let mouseX = 0;
     let mouseY = 0;
     document.addEventListener('mousemove', (e) => {
         mouseX = (e.clientX / width - 0.5) * 0.3;
         mouseY = (e.clientY / height - 0.5) * 0.3;
     });
-    document.addEventListener('touchmove', (e) => {
-        if (e.touches.length > 0) {
-            mouseX = (e.touches[0].clientX / width - 0.5) * 0.3;
-            mouseY = (e.touches[0].clientY / height - 0.5) * 0.3;
-        }
-    }, { passive: true });
 
     function draw() {
         ctx.fillStyle = '#0a0a0a';
