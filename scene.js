@@ -72,6 +72,16 @@
         mouseY = (e.clientY / height - 0.5) * 0.3;
     });
 
+    // Pause animation when tab is hidden to save battery
+    let isVisible = true;
+    let animationId = null;
+    document.addEventListener('visibilitychange', () => {
+        isVisible = !document.hidden;
+        if (isVisible && !animationId) {
+            animationId = requestAnimationFrame(draw);
+        }
+    });
+
     function draw() {
         ctx.fillStyle = '#0a0a0a';
         ctx.fillRect(0, 0, width, height);
@@ -167,8 +177,12 @@
         }
         ctx.globalAlpha = 1;
 
-        requestAnimationFrame(draw);
+        if (isVisible) {
+            animationId = requestAnimationFrame(draw);
+        } else {
+            animationId = null;
+        }
     }
 
-    draw();
+    animationId = requestAnimationFrame(draw);
 })();

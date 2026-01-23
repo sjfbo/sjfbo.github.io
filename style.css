@@ -97,7 +97,7 @@ header {
 }
 
 .tagline {
-    color: #777;
+    color: #888;
     font-style: italic;
 }
 
@@ -136,6 +136,8 @@ section {
     color: #888;
     margin-bottom: 16px;
     font-size: 12px;
+    font-family: inherit;
+    font-weight: normal;
 }
 
 ul {
@@ -164,8 +166,13 @@ li a:hover {
     color: #fff;
 }
 
+a:focus-visible {
+    outline: 1px solid #888;
+    outline-offset: 2px;
+}
+
 .desc {
-    color: #777;
+    color: #999;
     font-size: 13px;
 }
 
