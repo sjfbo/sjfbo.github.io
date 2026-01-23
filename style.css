@@ -37,16 +37,67 @@ header {
     margin-bottom: 48px;
 }
 
-.ascii-logo {
-    font-size: 11px;
-    line-height: 1.2;
-    color: #fff;
+/* 3D Animated Logo */
+.logo-3d {
+    perspective: 500px;
     margin-bottom: 16px;
-    overflow-x: auto;
+    font-size: 48px;
+    font-weight: bold;
+    letter-spacing: -2px;
+}
+
+.logo-text {
+    display: inline-block;
+    color: #fff;
+    position: relative;
+    animation: float3d 6s ease-in-out infinite;
+    transform-style: preserve-3d;
+    text-shadow:
+        0 1px 0 #ccc,
+        0 2px 0 #bbb,
+        0 3px 0 #aaa,
+        0 4px 0 #999,
+        0 5px 0 #888,
+        0 6px 0 #777,
+        0 7px 0 #666,
+        0 8px 8px rgba(0, 0, 0, 0.4),
+        0 8px 20px rgba(0, 0, 0, 0.3);
+}
+
+.logo-dot {
+    display: inline-block;
+    color: #555;
+    font-size: 32px;
+    vertical-align: baseline;
+    animation: pulse 3s ease-in-out infinite;
+}
+
+@keyframes float3d {
+    0%, 100% {
+        transform: rotateX(10deg) rotateY(-5deg) translateY(0);
+    }
+    25% {
+        transform: rotateX(5deg) rotateY(5deg) translateY(-3px);
+    }
+    50% {
+        transform: rotateX(-5deg) rotateY(10deg) translateY(0);
+    }
+    75% {
+        transform: rotateX(0deg) rotateY(-8deg) translateY(-2px);
+    }
+}
+
+@keyframes pulse {
+    0%, 100% {
+        opacity: 0.5;
+    }
+    50% {
+        opacity: 1;
+    }
 }
 
 .tagline {
-    color: #555;
+    color: #777;
     font-style: italic;
 }
 
@@ -54,7 +105,7 @@ header {
 .bio {
     margin-bottom: 48px;
     padding-left: 2ch;
-    border-left: 2px solid #333;
+    border-left: 2px solid #444;
 }
 
 .bio p {
@@ -63,11 +114,11 @@ header {
 
 .bio .author {
     margin-top: 12px;
-    color: #666;
+    color: #888;
 }
 
 .bio a {
-    color: #888;
+    color: #aaa;
     text-decoration: none;
 }
 
@@ -82,7 +133,7 @@ section {
 }
 
 .section-header {
-    color: #555;
+    color: #888;
     margin-bottom: 16px;
     font-size: 12px;
 }
@@ -100,11 +151,11 @@ li {
 }
 
 .bullet {
-    color: #444;
+    color: #666;
 }
 
 li a {
-    color: #ccc;
+    color: #ddd;
     text-decoration: none;
     transition: color 0.15s;
 }
@@ -114,7 +165,7 @@ li a:hover {
 }
 
 .desc {
-    color: #444;
+    color: #777;
     font-size: 13px;
 }
 
@@ -122,13 +173,20 @@ li a:hover {
 footer {
     margin-top: 64px;
     padding-top: 32px;
-    border-top: 1px solid #222;
+    border-top: 1px solid #333;
 }
 
 .agent-note {
     font-size: 11px;
-    color: #444;
+    color: #666;
     line-height: 1.4;
+}
+
+.copyright {
+    margin-top: 24px;
+    color: #555;
+    font-size: 12px;
+    text-align: center;
 }
 
 /* Responsive */
@@ -137,8 +195,12 @@ footer {
         padding: 40px 16px 60px;
     }
 
-    .ascii-logo {
-        font-size: 8px;
+    .logo-3d {
+        font-size: 32px;
+    }
+
+    .logo-dot {
+        font-size: 22px;
     }
 
     li {
