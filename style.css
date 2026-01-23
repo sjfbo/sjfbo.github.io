@@ -233,18 +233,17 @@ footer {
     }
 
     li {
-        flex-direction: column;
-        gap: 4px;
-        margin-bottom: 12px;
-        padding: 8px 0;
+        flex-wrap: wrap;
+        gap: 4px 8px;
+        margin-bottom: 16px;
     }
 
     li a {
         font-size: 16px;
-        padding: 4px 0;
     }
 
     .desc {
+        width: 100%;
         padding-left: 2ch;
         font-size: 14px;
     }
