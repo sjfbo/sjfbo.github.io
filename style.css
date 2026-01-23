@@ -191,25 +191,103 @@ footer {
 
 /* Responsive */
 @media (max-width: 600px) {
+    body {
+        font-size: 15px;
+    }
+
     main {
-        padding: 40px 16px 60px;
+        padding: 32px 20px 60px;
+    }
+
+    header {
+        margin-bottom: 36px;
     }
 
     .logo-3d {
-        font-size: 32px;
+        font-size: 36px;
+        letter-spacing: -1px;
+    }
+
+    .logo-text {
+        text-shadow:
+            0 1px 0 #ccc,
+            0 2px 0 #bbb,
+            0 3px 0 #aaa,
+            0 4px 4px rgba(0, 0, 0, 0.3);
     }
 
     .logo-dot {
-        font-size: 22px;
+        font-size: 24px;
+    }
+
+    .tagline {
+        font-size: 13px;
+    }
+
+    .bio {
+        margin-bottom: 36px;
+    }
+
+    section {
+        margin-bottom: 32px;
     }
 
     li {
         flex-direction: column;
-        gap: 2px;
+        gap: 4px;
+        margin-bottom: 12px;
+        padding: 8px 0;
+    }
+
+    li a {
+        font-size: 16px;
+        padding: 4px 0;
     }
 
     .desc {
         padding-left: 2ch;
+        font-size: 14px;
+    }
+
+    .agent-note {
+        font-size: 9px;
+        overflow-x: auto;
+        white-space: pre;
+    }
+
+    footer {
+        margin-top: 48px;
+    }
+
+    .copyright {
+        font-size: 11px;
+    }
+}
+
+/* Extra small screens */
+@media (max-width: 380px) {
+    .logo-3d {
+        font-size: 28px;
+    }
+
+    .logo-dot {
+        font-size: 20px;
+    }
+
+    .agent-note {
+        font-size: 8px;
+    }
+}
+
+/* Reduce motion for accessibility */
+@media (prefers-reduced-motion: reduce) {
+    .logo-text {
+        animation: none;
+    }
+
+    .logo-dot {
+        animation: none;
+        opacity: 0.7;
     }
 }
 
