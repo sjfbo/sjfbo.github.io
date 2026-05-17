@@ -1,0 +1,98 @@
+export const profile = {
+  name: "sjfbo",
+  handle: "@sjfbo",
+  domains: ["software engineering", "machine learning", "mathematics"],
+  summary:
+    "I build systems that reason, learn, and endure. This is where I write, ship, and test ideas at the boundary of code and theory.",
+  about:
+    "I care about elegant abstractions, rigorous thinking, and software that remains legible after the first burst of invention. My work moves between engineering practice, learning systems, optimization, and mathematical structure.",
+  contactIntro: "Thoughts, collaborations, or quiet signals.",
+  currently: [
+    { label: "focus", value: "agent systems, evaluation, and robust interfaces" },
+    { label: "stack", value: "TypeScript, Python, React, model tooling" },
+    { label: "mode", value: "research notes, prototypes, and implementation logs" },
+  ],
+};
+
+export const articles = [
+  {
+    slug: "inductive-bias-shape-intelligence",
+    title: "On Inductive Bias and the Shape of Intelligence",
+    date: "2026-05-06",
+    readingTime: "7 min",
+    tags: ["ml", "systems", "theory"],
+    summary:
+      "Notes on aligning models with reality through structure, constraints, and the right kind of prior.",
+  },
+  {
+    slug: "systems-over-models",
+    title: "Systems > Models: A Practical View",
+    date: "2026-04-18",
+    readingTime: "5 min",
+    tags: ["software", "interfaces", "agents"],
+    summary:
+      "Why durable software abstractions matter more than the model du jour.",
+  },
+  {
+    slug: "gradient-descent-function-space",
+    title: "Gradient Descent in Function Space",
+    date: "2026-03-27",
+    readingTime: "9 min",
+    tags: ["math", "optimization", "learning"],
+    summary:
+      "A mathematical perspective on optimization, learning dynamics, and generalization.",
+  },
+];
+
+export const projects = [
+  {
+    slug: "lume",
+    name: "lume",
+    kind: "research framework",
+    summary: "Tools for training, evaluating, and inspecting learning systems.",
+    mark: "matrix",
+    status: "prototype",
+    updated: "active",
+    tags: ["evaluation", "ml systems"],
+    details: [
+      "Experiment registry for model runs, datasets, prompts, and evaluation traces.",
+      "Small adapters for comparing qualitative observations with quantitative metrics.",
+      "Architecture notes and example reports will land here as the framework hardens.",
+    ],
+  },
+  {
+    slug: "tessera",
+    name: "tessera",
+    kind: "geometry library",
+    summary: "Composable geometry and algebra primitives for scientific computing.",
+    mark: "triangle",
+    status: "design notes",
+    updated: "sketching",
+    tags: ["math", "compute"],
+    details: [
+      "A typed core for transformations, spaces, and symbolic/numeric boundary points.",
+      "Intended for experiments that need mathematical structure without a heavy framework.",
+      "API sketches, examples, and implementation notes will collect here.",
+    ],
+  },
+  {
+    slug: "obscura",
+    name: "obscura",
+    kind: "model experiments",
+    summary: "Generative model experiments near the edge of coherence.",
+    mark: "star",
+    status: "lab notebook",
+    updated: "intermittent",
+    tags: ["generation", "memory"],
+    details: [
+      "A collection of small tests around generation, memory, compression, and failure modes.",
+      "The goal is to keep strange model behavior inspectable instead of anecdotal.",
+      "This will hold demos, observations, and links to reproducible runs.",
+    ],
+  },
+];
+
+export const contacts = [
+  { label: "github", value: "github.com/sjfbo", href: "https://github.com/sjfbo" },
+  { label: "x", value: "x.com/sjfbo", href: "https://x.com/sjfbo" },
+];
