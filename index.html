@@ -9,6 +9,17 @@
     />
     <meta name="theme-color" content="#030304" />
     <title>sjfbo</title>
+    <script>
+      (() => {
+        try {
+          const theme = localStorage.getItem("sjfbo-theme");
+          if (theme === "light" || theme === "dark") {
+            document.documentElement.dataset.theme = theme;
+            document.documentElement.style.colorScheme = theme;
+          }
+        } catch {}
+      })();
+    </script>
   </head>
   <body>
     <div id="root"></div>

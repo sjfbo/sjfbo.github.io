@@ -8,10 +8,96 @@
   --line: rgba(239, 237, 229, 0.16);
   --line-strong: rgba(239, 237, 229, 0.28);
   --accent: #f5f1e7;
+  --bg-glow: rgba(255, 255, 255, 0.06);
+  --grid-line: rgba(255, 255, 255, 0.024);
+  --grid-line-soft: rgba(255, 255, 255, 0.018);
+  --topbar-bg: rgba(3, 3, 4, 0.74);
+  --interactive-bg: rgba(255, 255, 255, 0.025);
+  --interactive-bg-strong: rgba(255, 255, 255, 0.035);
+  --row-hover-bg: rgba(255, 255, 255, 0.012);
+  --row-hover-gradient: linear-gradient(90deg, rgba(255, 255, 255, 0.035), transparent 44%);
+  --tag-line: rgba(239, 237, 229, 0.12);
+  --inline-code-bg: rgba(255, 255, 255, 0.035);
+  --code-grid-line: rgba(255, 255, 255, 0.026);
+  --code-grid-line-soft: rgba(255, 255, 255, 0.018);
+  --code-bg: rgba(3, 3, 4, 0.82);
+  --code-failed: #d0a4a4;
+  --code-text: #c8c4bb;
+  --code-keyword: #9fd0d1;
+  --code-title: #f0ead6;
+  --code-type: #aecbe0;
+  --code-string: #b7c8b0;
+  --code-number: #dec88d;
+  --code-comment: #77736b;
+  --code-attr: #d0bfa1;
+  --code-meta: #9fb6bf;
+  --code-deletion: #d0a4a4;
+  --code-addition: #b6cda9;
+  --mermaid-glow: rgba(255, 255, 255, 0.055);
+  --mermaid-bg: rgba(3, 3, 4, 0.72);
+  --mermaid-error-line: rgba(239, 237, 229, 0.32);
+  --portrait-bg: #050505;
+  --portrait-overlay: linear-gradient(rgba(239, 237, 229, 0.12), rgba(3, 3, 4, 0.22));
+  --portrait-sheen: linear-gradient(90deg, transparent, rgba(239, 237, 229, 0.08) 52%, transparent);
+  --portrait-ring: inset 0 0 0 1px rgba(239, 237, 229, 0.12);
+  --portrait-shadow: inset 0 0 46px rgba(3, 3, 4, 0.7);
+  --portrait-filter: grayscale(1) sepia(0.18) saturate(0.58) contrast(1.22) brightness(0.76);
+  --hero-image-filter: contrast(1.08) brightness(0.84);
+  --hero-image-blend: normal;
+  --hero-image-opacity: 0.78;
   --measure: 1560px;
   --mono: "SFMono-Regular", "Roboto Mono", "Cascadia Code", "Liberation Mono", monospace;
   --serif: Georgia, "Times New Roman", serif;
   --sans: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+:root[data-theme="light"] {
+  color-scheme: light;
+  --bg: #eeece6;
+  --bg-soft: #e2dfd7;
+  --text: #171615;
+  --muted: #5f5c55;
+  --faint: #837f76;
+  --line: rgba(23, 22, 21, 0.16);
+  --line-strong: rgba(23, 22, 21, 0.28);
+  --accent: #0d0d0c;
+  --bg-glow: transparent;
+  --grid-line: transparent;
+  --grid-line-soft: transparent;
+  --topbar-bg: rgba(238, 236, 230, 0.78);
+  --interactive-bg: rgba(23, 22, 21, 0.04);
+  --interactive-bg-strong: rgba(23, 22, 21, 0.06);
+  --row-hover-bg: rgba(23, 22, 21, 0.018);
+  --row-hover-gradient: linear-gradient(90deg, rgba(23, 22, 21, 0.045), transparent 44%);
+  --tag-line: rgba(23, 22, 21, 0.13);
+  --inline-code-bg: rgba(23, 22, 21, 0.045);
+  --code-grid-line: rgba(23, 22, 21, 0.04);
+  --code-grid-line-soft: rgba(23, 22, 21, 0.03);
+  --code-bg: rgba(248, 247, 242, 0.86);
+  --code-failed: #9d4e4e;
+  --code-text: #2d2b27;
+  --code-keyword: #006b75;
+  --code-title: #171615;
+  --code-type: #365f7d;
+  --code-string: #4f6b35;
+  --code-number: #856100;
+  --code-comment: #81786d;
+  --code-attr: #755b2e;
+  --code-meta: #4e6670;
+  --code-deletion: #9d4e4e;
+  --code-addition: #557337;
+  --mermaid-glow: rgba(23, 22, 21, 0.055);
+  --mermaid-bg: rgba(248, 247, 242, 0.72);
+  --mermaid-error-line: rgba(23, 22, 21, 0.3);
+  --portrait-bg: #ddd9cf;
+  --portrait-overlay: linear-gradient(rgba(238, 236, 230, 0.05), rgba(238, 236, 230, 0.28));
+  --portrait-sheen: linear-gradient(90deg, transparent, rgba(23, 22, 21, 0.08) 52%, transparent);
+  --portrait-ring: inset 0 0 0 1px rgba(23, 22, 21, 0.1);
+  --portrait-shadow: inset 0 0 42px rgba(23, 22, 21, 0.18);
+  --portrait-filter: grayscale(1) sepia(0.08) saturate(0.7) contrast(1.08) brightness(0.98);
+  --hero-image-filter: grayscale(1) contrast(1.06) brightness(1.04) invert(1);
+  --hero-image-blend: multiply;
+  --hero-image-opacity: 0.54;
 }
 
 * {
@@ -27,15 +113,16 @@ body {
   min-width: 320px;
   color: var(--text);
   background:
-    radial-gradient(circle at 66% 22%, rgba(255, 255, 255, 0.06), transparent 28rem),
-    linear-gradient(rgba(255, 255, 255, 0.024) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.018) 1px, transparent 1px),
+    radial-gradient(circle at 66% 22%, var(--bg-glow), transparent 28rem),
+    linear-gradient(var(--grid-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-line-soft) 1px, transparent 1px),
     var(--bg);
   background-size: auto, 28px 28px, 28px 28px, auto;
   font-family: var(--sans);
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
   overflow-x: hidden;
+  transition: color 180ms ease;
 }
 
 a {
@@ -82,12 +169,13 @@ button:focus-visible {
   min-width: 0;
   min-height: 76px;
   border-bottom: 1px solid var(--line);
-  background: rgba(3, 3, 4, 0.74);
+  background: var(--topbar-bg);
   backdrop-filter: blur(18px);
 }
 
 .brand,
-.nav-links {
+.nav-links,
+.topbar-actions {
   display: flex;
   align-items: center;
 }
@@ -123,6 +211,48 @@ button:focus-visible {
   font-size: 12px;
   text-transform: uppercase;
   color: var(--muted);
+}
+
+.topbar-actions {
+  justify-content: flex-end;
+  gap: clamp(16px, 2.5vw, 30px);
+  min-width: 0;
+  flex: 1 1 auto;
+}
+
+.theme-toggle {
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  flex: 0 0 auto;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  background: transparent;
+  color: var(--muted);
+  cursor: pointer;
+  transition:
+    border-color 180ms ease,
+    background-color 180ms ease,
+    color 180ms ease,
+    transform 180ms ease;
+}
+
+.theme-toggle:hover {
+  border-color: var(--line-strong);
+  background: var(--interactive-bg);
+  color: var(--accent);
+  transform: translateY(-1px);
+}
+
+.theme-icon {
+  width: 16px;
+  height: 16px;
+  fill: none;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 1.55;
 }
 
 .nav-links a,
@@ -252,7 +382,7 @@ button:focus-visible {
 
 .hero-actions a:hover {
   border-color: var(--line-strong);
-  background: rgba(255, 255, 255, 0.025);
+  background: var(--interactive-bg);
   color: var(--accent);
 }
 
@@ -261,7 +391,7 @@ button:focus-visible {
   min-height: 310px;
   margin-right: max(-14px, -1vw);
   overflow: hidden;
-  opacity: 0.78;
+  opacity: var(--hero-image-opacity);
   mask-image: linear-gradient(90deg, transparent 0, black 13%, black 84%, transparent 100%);
 }
 
@@ -279,7 +409,8 @@ button:focus-visible {
   min-height: 310px;
   object-fit: cover;
   object-position: center;
-  filter: contrast(1.08) brightness(0.84);
+  filter: var(--hero-image-filter);
+  mix-blend-mode: var(--hero-image-blend);
 }
 
 .axis {
@@ -417,8 +548,8 @@ button:focus-visible {
 .project-row:hover {
   border-color: var(--line-strong);
   background:
-    linear-gradient(90deg, rgba(255, 255, 255, 0.035), transparent 44%),
-    rgba(255, 255, 255, 0.012);
+    var(--row-hover-gradient),
+    var(--row-hover-bg);
   transform: translateY(-1px);
 }
 
@@ -496,7 +627,7 @@ button:focus-visible {
   align-items: center;
   min-height: 18px;
   padding: 0 7px;
-  border: 1px solid rgba(239, 237, 229, 0.12);
+  border: 1px solid var(--tag-line);
   color: var(--faint);
   font-family: var(--mono);
   font-size: 10px;
@@ -852,6 +983,8 @@ button:focus-visible {
 
 .markdown-body h2:first-child {
   margin-top: 0;
+  padding-top: 0;
+  border-top: 0;
 }
 
 .markdown-body h3 {
@@ -919,7 +1052,7 @@ button:focus-visible {
 .markdown-body :not(pre) > code {
   padding: 0.14em 0.38em;
   border: 1px solid var(--line);
-  background: rgba(255, 255, 255, 0.035);
+  background: var(--inline-code-bg);
   color: var(--text);
   font-family: var(--mono);
   font-size: 0.92em;
@@ -930,9 +1063,9 @@ button:focus-visible {
   margin: 28px 0 0;
   border: 1px solid var(--line);
   background:
-    linear-gradient(rgba(255, 255, 255, 0.026) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.018) 1px, transparent 1px),
-    rgba(3, 3, 4, 0.82);
+    linear-gradient(var(--code-grid-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--code-grid-line-soft) 1px, transparent 1px),
+    var(--code-bg);
   background-size: 22px 22px, 22px 22px, auto;
 }
 
@@ -992,12 +1125,12 @@ button:focus-visible {
 .code-copy[data-status="selected"],
 .code-copy[data-status="failed"] {
   border-color: var(--line);
-  background: rgba(255, 255, 255, 0.035);
+  background: var(--interactive-bg-strong);
   color: var(--accent);
 }
 
 .code-copy[data-status="failed"] {
-  color: #d0a4a4;
+  color: var(--code-failed);
 }
 
 .copy-icon {
@@ -1021,7 +1154,7 @@ button:focus-visible {
 }
 
 .code-block code {
-  color: #c8c4bb;
+  color: var(--code-text);
   font-family: var(--mono);
   font-size: 13px;
   line-height: 1.85;
@@ -1031,36 +1164,36 @@ button:focus-visible {
 .code-block .hljs-keyword,
 .code-block .hljs-selector-tag,
 .code-block .hljs-built_in {
-  color: #9fd0d1;
+  color: var(--code-keyword);
 }
 
 .code-block .hljs-title,
 .code-block .hljs-title.function_,
 .code-block .hljs-function .hljs-title {
-  color: #f0ead6;
+  color: var(--code-title);
 }
 
 .code-block .hljs-type,
 .code-block .hljs-title.class_,
 .code-block .hljs-variable.language_ {
-  color: #aecbe0;
+  color: var(--code-type);
 }
 
 .code-block .hljs-string,
 .code-block .hljs-regexp,
 .code-block .hljs-template-variable {
-  color: #b7c8b0;
+  color: var(--code-string);
 }
 
 .code-block .hljs-number,
 .code-block .hljs-literal,
 .code-block .hljs-symbol {
-  color: #dec88d;
+  color: var(--code-number);
 }
 
 .code-block .hljs-comment,
 .code-block .hljs-quote {
-  color: #77736b;
+  color: var(--code-comment);
   font-style: italic;
 }
 
@@ -1069,20 +1202,20 @@ button:focus-visible {
 .code-block .hljs-property,
 .code-block .hljs-params,
 .code-block .hljs-punctuation {
-  color: #d0bfa1;
+  color: var(--code-attr);
 }
 
 .code-block .hljs-meta,
 .code-block .hljs-tag {
-  color: #9fb6bf;
+  color: var(--code-meta);
 }
 
 .code-block .hljs-deletion {
-  color: #d0a4a4;
+  color: var(--code-deletion);
 }
 
 .code-block .hljs-addition {
-  color: #b6cda9;
+  color: var(--code-addition);
 }
 
 .mermaid-frame {
@@ -1093,8 +1226,8 @@ button:focus-visible {
   padding: 22px;
   border: 1px solid var(--line);
   background:
-    radial-gradient(circle at 50% 20%, rgba(255, 255, 255, 0.055), transparent 22rem),
-    rgba(3, 3, 4, 0.72);
+    radial-gradient(circle at 50% 20%, var(--mermaid-glow), transparent 22rem),
+    var(--mermaid-bg);
 }
 
 .mermaid-frame svg {
@@ -1113,7 +1246,7 @@ button:focus-visible {
 .mermaid-error {
   align-content: center;
   gap: 10px;
-  border-color: rgba(239, 237, 229, 0.32);
+  border-color: var(--mermaid-error-line);
   color: var(--muted);
   font-family: var(--mono);
   font-size: 12px;
@@ -1205,7 +1338,7 @@ button:focus-visible {
   overflow: hidden;
   border: 1px solid var(--line-strong);
   border-radius: 50%;
-  background: #050505;
+  background: var(--portrait-bg);
 }
 
 .about-portrait::after {
@@ -1215,11 +1348,11 @@ button:focus-visible {
   z-index: 1;
   pointer-events: none;
   background:
-    linear-gradient(rgba(239, 237, 229, 0.12), rgba(3, 3, 4, 0.22)),
-    linear-gradient(90deg, transparent, rgba(239, 237, 229, 0.08) 52%, transparent);
+    var(--portrait-overlay),
+    var(--portrait-sheen);
   box-shadow:
-    inset 0 0 0 1px rgba(239, 237, 229, 0.12),
-    inset 0 0 46px rgba(3, 3, 4, 0.7);
+    var(--portrait-ring),
+    var(--portrait-shadow);
 }
 
 .about-portrait img {
@@ -1227,7 +1360,7 @@ button:focus-visible {
   height: 100%;
   object-fit: cover;
   object-position: center 44%;
-  filter: grayscale(1) sepia(0.18) saturate(0.58) contrast(1.22) brightness(0.76);
+  filter: var(--portrait-filter);
 }
 
 .current-list {
@@ -1317,6 +1450,10 @@ button:focus-visible {
     font-size: 11px;
   }
 
+  .topbar-actions {
+    gap: clamp(14px, 3vw, 24px);
+  }
+
   .nav-links a::after {
     bottom: -25px;
   }
@@ -1355,8 +1492,8 @@ button:focus-visible {
     position: static;
     order: -1;
     margin-top: 28px;
-    padding: 16px 0 0;
-    border-top: 1px solid var(--line);
+    padding: 0;
+    border-top: 0;
     border-left: 0;
   }
 
@@ -1417,6 +1554,14 @@ button:focus-visible {
     font-size: 19px;
   }
 
+  .topbar-actions {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: center;
+    width: 100%;
+    gap: 12px;
+  }
+
   .nav-links {
     display: flex;
     width: 100%;
@@ -1432,6 +1577,12 @@ button:focus-visible {
 
   .nav-links a::after {
     bottom: -10px;
+  }
+
+  .theme-toggle {
+    justify-self: end;
+    width: 30px;
+    height: 30px;
   }
 
   .hero-summary {

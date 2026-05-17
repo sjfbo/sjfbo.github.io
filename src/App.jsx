@@ -56,6 +56,88 @@ const navItems = [
   { href: "#/contact", key: "contact", label: "contact" },
 ];
 
+const THEME_STORAGE_KEY = "sjfbo-theme";
+const themeOptions = new Set(["dark", "light"]);
+
+const mermaidThemeVariables = {
+  dark: {
+    background: "#030304",
+    primaryColor: "#0b0b0c",
+    primaryTextColor: "#efede5",
+    primaryBorderColor: "rgba(239, 237, 229, 0.35)",
+    lineColor: "rgba(239, 237, 229, 0.48)",
+    secondaryColor: "#101012",
+    tertiaryColor: "#070708",
+    fontFamily:
+      "SFMono-Regular, Roboto Mono, Cascadia Code, Liberation Mono, monospace",
+  },
+  light: {
+    background: "#eeece6",
+    primaryColor: "#f7f6f1",
+    primaryTextColor: "#171615",
+    primaryBorderColor: "rgba(23, 22, 21, 0.26)",
+    lineColor: "rgba(23, 22, 21, 0.46)",
+    secondaryColor: "#e3e0d8",
+    tertiaryColor: "#faf9f5",
+    fontFamily:
+      "SFMono-Regular, Roboto Mono, Cascadia Code, Liberation Mono, monospace",
+  },
+};
+
+function normalizeTheme(value) {
+  return themeOptions.has(value) ? value : "dark";
+}
+
+function readPreferredTheme() {
+  if (typeof document !== "undefined") {
+    const documentTheme = document.documentElement.dataset.theme;
+    if (themeOptions.has(documentTheme)) return documentTheme;
+  }
+
+  if (typeof window === "undefined") return "dark";
+
+  try {
+    return normalizeTheme(window.localStorage.getItem(THEME_STORAGE_KEY));
+  } catch {
+    return "dark";
+  }
+}
+
+function applyTheme(theme) {
+  if (typeof document === "undefined") return;
+
+  document.documentElement.dataset.theme = theme;
+  document.documentElement.style.colorScheme = theme;
+  document
+    .querySelector('meta[name="theme-color"]')
+    ?.setAttribute("content", theme === "dark" ? "#030304" : "#eeece6");
+
+  try {
+    window.localStorage.setItem(THEME_STORAGE_KEY, theme);
+  } catch {
+    // Theme still applies for the session when localStorage is unavailable.
+  }
+}
+
+function readCurrentTheme() {
+  if (typeof document === "undefined") return "dark";
+  return normalizeTheme(document.documentElement.dataset.theme);
+}
+
+function useThemePreference() {
+  const [theme, setTheme] = React.useState(readPreferredTheme);
+
+  React.useLayoutEffect(() => {
+    applyTheme(theme);
+  }, [theme]);
+
+  const toggleTheme = React.useCallback(() => {
+    setTheme((currentTheme) => (currentTheme === "dark" ? "light" : "dark"));
+  }, []);
+
+  return { theme, toggleTheme };
+}
+
 function escapeHtml(value) {
   return value
     .replace(/&/g, "&amp;")
@@ -151,28 +233,7 @@ function extractArticleToc(source) {
 
 function getMermaidRenderer() {
   if (!mermaidRendererPromise) {
-    mermaidRendererPromise = import("mermaid").then((mermaidModule) => {
-      const mermaid = mermaidModule.default;
-
-      mermaid.initialize({
-        startOnLoad: false,
-        securityLevel: "strict",
-        theme: "base",
-        themeVariables: {
-          background: "#030304",
-          primaryColor: "#0b0b0c",
-          primaryTextColor: "#efede5",
-          primaryBorderColor: "rgba(239, 237, 229, 0.35)",
-          lineColor: "rgba(239, 237, 229, 0.48)",
-          secondaryColor: "#101012",
-          tertiaryColor: "#070708",
-          fontFamily:
-            "SFMono-Regular, Roboto Mono, Cascadia Code, Liberation Mono, monospace",
-        },
-      });
-
-      return mermaid;
-    });
+    mermaidRendererPromise = import("mermaid").then((mermaidModule) => mermaidModule.default);
   }
 
   return mermaidRendererPromise;
@@ -201,6 +262,40 @@ function CopyIcon() {
       <rect x="8" y="8" width="10" height="10" />
       <path d="M6 14H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h7a2 2 0 0 1 2 2v1" />
     </svg>
+  );
+}
+
+function ThemeIcon({ theme }) {
+  if (theme === "light") {
+    return (
+      <svg className="theme-icon" viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M20.3 15.6a7.2 7.2 0 0 1-9.9-9.9 7.4 7.4 0 1 0 9.9 9.9Z" />
+      </svg>
+    );
+  }
+
+  return (
+    <svg className="theme-icon" viewBox="0 0 24 24" aria-hidden="true">
+      <circle cx="12" cy="12" r="4.1" />
+      <path d="M12 2.7v2.2M12 19.1v2.2M4.7 4.7l1.6 1.6M17.7 17.7l1.6 1.6M2.7 12h2.2M19.1 12h2.2M4.7 19.3l1.6-1.6M17.7 6.3l1.6-1.6" />
+    </svg>
+  );
+}
+
+function ThemeToggle({ onToggleTheme, theme }) {
+  const nextTheme = theme === "dark" ? "light" : "dark";
+
+  return (
+    <button
+      aria-label={`Switch to ${nextTheme} mode`}
+      className="theme-toggle"
+      data-theme-mode={theme}
+      onClick={onToggleTheme}
+      title={`${nextTheme} mode`}
+      type="button"
+    >
+      <ThemeIcon theme={theme} />
+    </button>
   );
 }
 
@@ -359,7 +454,20 @@ function formatDate(dateString) {
 
 function MermaidDiagram({ chart }) {
   const id = React.useId().replace(/:/g, "");
+  const [theme, setTheme] = React.useState(readCurrentTheme);
   const [rendered, setRendered] = React.useState({ svg: "", error: "" });
+
+  React.useEffect(() => {
+    const root = document.documentElement;
+    const observer = new MutationObserver(() => setTheme(readCurrentTheme()));
+
+    observer.observe(root, {
+      attributeFilter: ["data-theme"],
+      attributes: true,
+    });
+
+    return () => observer.disconnect();
+  }, []);
 
   React.useEffect(() => {
     let cancelled = false;
@@ -367,7 +475,15 @@ function MermaidDiagram({ chart }) {
     async function renderDiagram() {
       try {
         const mermaid = await getMermaidRenderer();
-        const result = await mermaid.render(`mermaid-${id}`, chart);
+
+        mermaid.initialize({
+          startOnLoad: false,
+          securityLevel: "strict",
+          theme: "base",
+          themeVariables: mermaidThemeVariables[theme],
+        });
+
+        const result = await mermaid.render(`mermaid-${id}-${theme}`, chart);
         if (!cancelled) {
           setRendered({ svg: result.svg, error: "" });
         }
@@ -385,7 +501,7 @@ function MermaidDiagram({ chart }) {
     return () => {
       cancelled = true;
     };
-  }, [chart, id]);
+  }, [chart, id, theme]);
 
   if (rendered.error) {
     return (
@@ -669,7 +785,7 @@ function useDocumentTitle(route) {
   }, [route.name, route.slug]);
 }
 
-function Topbar({ route }) {
+function Topbar({ onToggleTheme, route, theme }) {
   const activeSection =
     route.name === "article" ? "writing" : route.name === "project" ? "projects" : route.name;
 
@@ -679,21 +795,27 @@ function Topbar({ route }) {
         <StarGlyph className="brand-mark" />
         <span className="brand-name">{profile.handle}</span>
       </a>
-      <nav className="nav-links">
-        {navItems.map((item) => {
-          const active = activeSection === item.key;
-          return (
-            <a
-              aria-current={active ? "page" : undefined}
-              data-active={active ? "true" : "false"}
-              href={item.href}
-              key={item.key}
-            >
-              {item.label}
-            </a>
-          );
-        })}
-      </nav>
+      <div className="topbar-actions">
+        <nav className="nav-links">
+          {navItems.map((item) => {
+            const active = activeSection === item.key;
+            return (
+              <a
+                aria-current={active ? "page" : undefined}
+                data-active={active ? "true" : "false"}
+                href={item.href}
+                key={item.key}
+              >
+                {item.label}
+              </a>
+            );
+          })}
+        </nav>
+        <ThemeToggle
+          onToggleTheme={onToggleTheme}
+          theme={theme}
+        />
+      </div>
     </header>
   );
 }
@@ -1063,11 +1185,16 @@ function RouteView({ route }) {
 
 export function App() {
   const route = useHashRoute();
+  const { theme, toggleTheme } = useThemePreference();
   useDocumentTitle(route);
 
   return (
     <main className="site-shell">
-      <Topbar route={route} />
+      <Topbar
+        onToggleTheme={toggleTheme}
+        route={route}
+        theme={theme}
+      />
       <RouteView route={route} />
     </main>
   );
