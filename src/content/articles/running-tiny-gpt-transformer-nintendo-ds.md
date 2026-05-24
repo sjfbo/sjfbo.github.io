@@ -602,10 +602,10 @@ matches the PyTorch reference before blaming the handheld for bugs.
 
 ## Why the honest baseline is slow
 
-This baseline is not meant to be the final DS runtime. It is part one: keep the
-math direct, keep the buffers easy to inspect, and make every step comparable
-with the PyTorch reference before changing the implementation. The runtime loop
-is intentionally simple:
+This baseline is not meant to be the final DS runtime. It is part one. This
+version is slow on purpose: it is the reference implementation we use to make
+sure the DS runtime is correct before optimizing it. The runtime loop is
+intentionally simple:
 
 ```c
 for (int step = 0; step < max_steps; ++step) {
