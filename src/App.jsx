@@ -207,7 +207,7 @@ function extractArticleToc(source) {
   const tocItems = [];
   let fenceMarker = "";
 
-  source.split("\n").forEach((line) => {
+  source.split("\n").forEach((line, lineIndex) => {
     const fenceMatch = /^ {0,3}(`{3,}|~{3,})/.exec(line);
     if (fenceMatch) {
       const marker = fenceMatch[1][0];
@@ -226,6 +226,7 @@ function extractArticleToc(source) {
     tocItems.push({
       depth: headingMatch[1].length,
       id: uniqueHeadingId(title, headingCounts),
+      line: lineIndex + 1,
       title,
     });
   });
@@ -553,26 +554,31 @@ const markdownComponents = {
 };
 
 function createMarkdownComponents(tocItems) {
-  let headingIndex = 0;
+  const headingIdsByLine = new Map(
+    tocItems.map((item) => [`${item.depth}:${item.line}`, item.id]),
+  );
 
-  function nextHeadingId(children) {
-    const tocItem = tocItems[headingIndex];
-    headingIndex += 1;
-    return (tocItem?.id ?? slugifyHeading(textFromChildren(children))) || "section";
+  function headingId(depth, node, children) {
+    const line = node?.position?.start?.line;
+    return (
+      headingIdsByLine.get(`${depth}:${line}`) ||
+      slugifyHeading(textFromChildren(children)) ||
+      "section"
+    );
   }
 
   return {
     ...markdownComponents,
     h2({ node, children, ...props }) {
       return (
-        <h2 {...props} id={nextHeadingId(children)}>
+        <h2 {...props} id={headingId(2, node, children)}>
           {children}
         </h2>
       );
     },
     h3({ node, children, ...props }) {
       return (
-        <h3 {...props} id={nextHeadingId(children)}>
+        <h3 {...props} id={headingId(3, node, children)}>
           {children}
         </h3>
       );

@@ -36,6 +36,10 @@
   --mermaid-glow: rgba(255, 255, 255, 0.055);
   --mermaid-bg: rgba(3, 3, 4, 0.72);
   --mermaid-error-line: rgba(239, 237, 229, 0.32);
+  --mermaid-node-bg: rgba(239, 237, 229, 0.07);
+  --mermaid-node-line: rgba(239, 237, 229, 0.46);
+  --mermaid-text: #efede5;
+  --mermaid-edge: rgba(239, 237, 229, 0.68);
   --portrait-bg: #050505;
   --portrait-overlay: linear-gradient(rgba(239, 237, 229, 0.12), rgba(3, 3, 4, 0.22));
   --portrait-sheen: linear-gradient(90deg, transparent, rgba(239, 237, 229, 0.08) 52%, transparent);
@@ -89,6 +93,10 @@
   --mermaid-glow: rgba(23, 22, 21, 0.055);
   --mermaid-bg: rgba(248, 247, 242, 0.72);
   --mermaid-error-line: rgba(23, 22, 21, 0.3);
+  --mermaid-node-bg: rgba(23, 22, 21, 0.045);
+  --mermaid-node-line: rgba(23, 22, 21, 0.36);
+  --mermaid-text: #171615;
+  --mermaid-edge: rgba(23, 22, 21, 0.62);
   --portrait-bg: #ddd9cf;
   --portrait-overlay: linear-gradient(rgba(238, 236, 230, 0.05), rgba(238, 236, 230, 0.28));
   --portrait-sheen: linear-gradient(90deg, transparent, rgba(23, 22, 21, 0.08) 52%, transparent);
@@ -833,6 +841,10 @@ button:focus-visible {
   max-width: 1120px;
 }
 
+.article-page {
+  padding-inline: clamp(0px, 3vw, 36px);
+}
+
 .article-page .page-header h1 {
   max-width: 1120px;
   font-size: clamp(54px, 7.8vw, 112px);
@@ -903,22 +915,25 @@ button:focus-visible {
 .article-body {
   display: grid;
   gap: 30px;
-  max-width: 760px;
+  max-width: none;
   padding-top: 36px;
 }
 
 .article-layout {
   display: grid;
-  grid-template-columns: minmax(0, 760px) minmax(190px, 0.28fr);
-  gap: clamp(34px, 6vw, 78px);
+  grid-template-columns: minmax(0, 1fr) minmax(220px, 248px);
+  justify-content: space-between;
+  gap: clamp(48px, 6vw, 124px);
   align-items: start;
 }
 
 .article-toc {
   position: sticky;
   top: 104px;
+  justify-self: end;
+  width: 100%;
   margin-top: 36px;
-  padding: 18px 0 18px 22px;
+  padding: 18px 0 18px 28px;
   border-left: 1px solid var(--line);
 }
 
@@ -967,7 +982,7 @@ button:focus-visible {
 
 .markdown-body {
   display: block;
-  max-width: 860px;
+  max-width: 100%;
 }
 
 .markdown-body > * + * {
@@ -1220,19 +1235,54 @@ button:focus-visible {
 
 .mermaid-frame {
   display: grid;
-  place-items: center;
+  align-items: center;
+  justify-items: start;
   overflow-x: auto;
   margin-top: 28px;
-  padding: 22px;
-  border: 1px solid var(--line);
+  padding: 28px;
+  border: 1px solid var(--line-strong);
   background:
     radial-gradient(circle at 50% 20%, var(--mermaid-glow), transparent 22rem),
+    linear-gradient(var(--code-grid-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--code-grid-line-soft) 1px, transparent 1px),
     var(--mermaid-bg);
+  background-size: auto, 22px 22px, 22px 22px, auto;
 }
 
 .mermaid-frame svg {
-  max-width: 100%;
+  width: max(1080px, 100%);
+  max-width: none;
   height: auto;
+}
+
+.mermaid-frame .node rect,
+.mermaid-frame .node polygon,
+.mermaid-frame .node circle,
+.mermaid-frame .node ellipse {
+  fill: var(--mermaid-node-bg) !important;
+  stroke: var(--mermaid-node-line) !important;
+  stroke-width: 1.25px !important;
+}
+
+.mermaid-frame .edgePaths path,
+.mermaid-frame .flowchart-link {
+  stroke: var(--mermaid-edge) !important;
+  stroke-width: 1.35px !important;
+}
+
+.mermaid-frame marker path {
+  fill: var(--mermaid-edge) !important;
+  stroke: var(--mermaid-edge) !important;
+}
+
+.mermaid-frame text,
+.mermaid-frame .label,
+.mermaid-frame .nodeLabel,
+.mermaid-frame .edgeLabel,
+.mermaid-frame .edgeLabel p,
+.mermaid-frame .edgeLabel span {
+  color: var(--mermaid-text) !important;
+  fill: var(--mermaid-text) !important;
 }
 
 .mermaid-loading {
