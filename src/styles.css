@@ -1283,12 +1283,12 @@ button:focus-visible {
   width: fit-content;
   max-width: 100%;
   overflow-x: auto;
-  margin: 26px 0 0;
+  margin: 26px 0 34px;
 }
 
 .markdown-body .markdown-table + p,
 .markdown-body .markdown-table + .code-frame {
-  margin-top: 34px;
+  margin-top: 8px;
 }
 
 .markdown-body table {
