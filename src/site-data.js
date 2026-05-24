@@ -16,6 +16,15 @@ export const profile = {
 
 export const articles = [
   {
+    slug: "tuning-tiny-gpt-transformer-nintendo-ds",
+    title: "Tuning a Tiny GPT-Style Transformer on Nintendo DS",
+    date: "2026-05-24",
+    readingTime: "17 min",
+    tags: ["ml", "systems", "hardware"],
+    summary:
+      "A baseline walkthrough of training, exporting, and running a tiny byte-level GPT-style Transformer on original Nintendo DS hardware.",
+  },
+  {
     slug: "inductive-bias-shape-intelligence",
     title: "On Inductive Bias and the Shape of Intelligence",
     date: "2026-05-06",

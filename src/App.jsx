@@ -1,6 +1,7 @@
 import React from "react";
 import hljs from "highlight.js/lib/core";
 import bash from "highlight.js/lib/languages/bash";
+import c from "highlight.js/lib/languages/c";
 import css from "highlight.js/lib/languages/css";
 import javascript from "highlight.js/lib/languages/javascript";
 import json from "highlight.js/lib/languages/json";
@@ -13,6 +14,7 @@ import remarkGfm from "remark-gfm";
 import { articles, contacts, profile, projects } from "./site-data.js";
 
 hljs.registerLanguage("bash", bash);
+hljs.registerLanguage("c", c);
 hljs.registerLanguage("css", css);
 hljs.registerLanguage("javascript", javascript);
 hljs.registerLanguage("json", json);
