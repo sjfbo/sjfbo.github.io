@@ -1217,6 +1217,10 @@ button:focus-visible {
   color: var(--text);
 }
 
+.markdown-body blockquote + * {
+  margin-top: 40px;
+}
+
 .markdown-table {
   width: fit-content;
   max-width: 100%;
