@@ -58,6 +58,15 @@ const navItems = [
   { href: "#/contact", key: "contact", label: "contact" },
 ];
 
+const articleSlugAliases = {
+  "tuning-tiny-gpt-transformer-nintendo-ds":
+    "running-tiny-gpt-transformer-nintendo-ds",
+};
+
+function articleHash(slug, anchor) {
+  return `#/writing/${encodeURIComponent(slug)}${anchor ? `/${encodeURIComponent(anchor)}` : ""}`;
+}
+
 const THEME_STORAGE_KEY = "sjfbo-theme";
 const themeOptions = new Set(["dark", "light"]);
 
@@ -722,8 +731,17 @@ function readRoute() {
   }
 
   if (section === "writing") {
+    const canonicalSlug = articleSlugAliases[slug] ?? slug;
+
     return slug
-      ? { name: "article", slug, anchor, key: `article:${slug}` }
+      ? {
+          name: "article",
+          slug: canonicalSlug,
+          anchor,
+          canonicalHash:
+            canonicalSlug === slug ? "" : articleHash(canonicalSlug, anchor),
+          key: `article:${canonicalSlug}`,
+        }
       : { name: "writing", key: "writing" };
   }
 
@@ -749,22 +767,34 @@ function useHashRoute() {
   }, []);
 
   React.useEffect(() => {
+    if (route.canonicalHash && window.location.hash !== route.canonicalHash) {
+      window.history.replaceState(null, "", route.canonicalHash);
+    }
+  }, [route.canonicalHash]);
+
+  React.useEffect(() => {
     if (!route.anchor) {
       window.scrollTo(0, 0);
       return undefined;
     }
 
+    let nextFrameId;
     const frameId = window.requestAnimationFrame(() => {
-      const target = document.getElementById(route.anchor);
-      if (target) {
-        target.scrollIntoView({ block: "start" });
-      } else {
-        window.scrollTo(0, 0);
-      }
+      nextFrameId = window.requestAnimationFrame(() => {
+        const target = document.getElementById(route.anchor);
+        if (target) {
+          target.scrollIntoView({ block: "start" });
+        } else {
+          window.scrollTo(0, 0);
+        }
+      });
     });
 
-    return () => window.cancelAnimationFrame(frameId);
-  }, [route.anchor, route.key]);
+    return () => {
+      window.cancelAnimationFrame(frameId);
+      window.cancelAnimationFrame(nextFrameId);
+    };
+  }, [route.anchor, route.canonicalHash, route.key]);
 
   return route;
 }
