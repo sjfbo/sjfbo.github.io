@@ -22,6 +22,8 @@ export a narrow model file, validate the C runner against PyTorch, and then run
 the same weights on the DS. The later optimization work only makes sense once
 this plain version is legible.
 
+![Original Nintendo DS or DS Lite running the TinyLLM-DS ROM from a flashcart](slot/nds-rom-photo "photo")
+
 ## The machine sets the shape
 
 The precise technical description of TinyLLM-DS is:
@@ -115,6 +117,8 @@ P(x0, x1, x2, ..., xN)
 
 That formula is why the DS app can expose such a small runtime call. Repeating
 one step is enough to generate a sequence.
+
+![Short video of the DS generating bytes from a prompt, with the changing output visible on screen](slot/nds-generation-video "video")
 
 The word `decoder` comes from the original encoder-decoder Transformer used for
 translation:
@@ -594,6 +598,8 @@ The same exported model can be tested by the native C runner and loaded by the
 DS ROM. Parity matters: the native runner is how we check that the C runtime
 matches the PyTorch reference before blaming the handheld for bugs.
 
+![Photo of the flashcart model setup or DS loading screen before generation starts](slot/nds-model-load-photo "photo")
+
 ## Why the honest baseline is slow
 
 The baseline runtime is intentionally direct:
@@ -659,6 +665,8 @@ run crawled at roughly `0.02 tok/s`, while the later KV-cache experiment reached
 about `3.30 tok/s` on the same DS-class setup. Those numbers are not a promise
 about every model shape, but they explain why this baseline is a starting point,
 not the finish line.
+
+![Photo of the DS profile or benchmark overlay showing baseline, fixed-point, or KV-cache timing](slot/nds-benchmark-photo "photo")
 
 ## What this demo proves
 

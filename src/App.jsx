@@ -536,9 +536,54 @@ function MermaidDiagram({ chart }) {
   );
 }
 
+function ArticleMediaSlot({ alt = "", src = "", title = "" }) {
+  const kind = title?.trim() || (src.includes("video") ? "video" : "photo");
+
+  return (
+    <figure className="article-media-slot" data-kind={kind.toLowerCase()}>
+      <div className="article-media-slot-frame" aria-hidden="true">
+        <span>{kind} slot</span>
+      </div>
+      <figcaption>
+        <strong>{alt || "Suggested article media"}</strong>
+        <span>replace this placeholder with the captured {kind} asset</span>
+      </figcaption>
+    </figure>
+  );
+}
+
 const markdownComponents = {
   a({ node, ...props }) {
     return <a {...props} />;
+  },
+  p({ node, children, ...props }) {
+    const childArray = React.Children.toArray(children);
+    const onlyChild = childArray.length === 1 ? childArray[0] : null;
+    const onlyNodeChild = node?.children?.length === 1 ? node.children[0] : null;
+    const childSrc = onlyNodeChild?.properties?.src ?? "";
+
+    if (
+      React.isValidElement(onlyChild) &&
+      (
+        onlyChild.props?.className === "article-media-slot" ||
+        (
+          onlyNodeChild?.tagName === "img" &&
+          typeof childSrc === "string" &&
+          (childSrc.startsWith("slot/") || childSrc.startsWith("slot:"))
+        )
+      )
+    ) {
+      return <>{children}</>;
+    }
+
+    return <p {...props}>{children}</p>;
+  },
+  img({ node, alt, src = "", title, ...props }) {
+    if (typeof src === "string" && (src.startsWith("slot/") || src.startsWith("slot:"))) {
+      return <ArticleMediaSlot alt={alt} src={src} title={title} />;
+    }
+
+    return <img alt={alt ?? ""} loading="lazy" src={src} title={title} {...props} />;
   },
   table({ node, ...props }) {
     return (

@@ -1221,6 +1221,64 @@ button:focus-visible {
   margin-top: 40px;
 }
 
+.article-media-slot {
+  display: grid;
+  margin: 34px 0 0;
+  border: 1px solid var(--line);
+  background:
+    linear-gradient(var(--code-grid-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--code-grid-line-soft) 1px, transparent 1px),
+    var(--interactive-bg);
+  background-size: 22px 22px, 22px 22px, auto;
+}
+
+.article-media-slot-frame {
+  display: grid;
+  place-items: center;
+  min-height: clamp(220px, 26vw, 360px);
+  border-bottom: 1px solid var(--line);
+}
+
+.article-media-slot-frame span {
+  display: inline-grid;
+  place-items: center;
+  min-width: 132px;
+  min-height: 34px;
+  padding: 0 16px;
+  border: 1px solid var(--line);
+  color: var(--text);
+  font-family: var(--mono);
+  font-size: 11px;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.article-media-slot figcaption {
+  display: grid;
+  gap: 6px;
+  margin: 0;
+  padding: 16px 18px 18px;
+  font-family: var(--mono);
+}
+
+.article-media-slot figcaption strong {
+  color: var(--text);
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 1.55;
+}
+
+.article-media-slot figcaption span {
+  color: var(--faint);
+  font-size: 11px;
+  line-height: 1.5;
+  text-transform: uppercase;
+}
+
+.markdown-body .article-media-slot + * {
+  margin-top: 40px;
+}
+
 .markdown-table {
   width: fit-content;
   max-width: 100%;
