@@ -1043,19 +1043,24 @@ button:focus-visible {
   border-left: 1px solid var(--line-strong);
 }
 
-.markdown-body table {
-  display: block;
-  width: max-content;
+.markdown-table {
+  width: fit-content;
   max-width: 100%;
   overflow-x: auto;
   margin-top: 26px;
+}
+
+.markdown-table + * {
+  margin-top: 34px;
+}
+
+.markdown-body table {
+  width: max-content;
+  min-width: 100%;
+  margin: 0;
   border-collapse: collapse;
   border: 1px solid var(--line);
   font-family: var(--mono);
-}
-
-.markdown-body table + * {
-  margin-top: 34px;
 }
 
 .markdown-body th,

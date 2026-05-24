@@ -540,6 +540,13 @@ const markdownComponents = {
   a({ node, ...props }) {
     return <a {...props} />;
   },
+  table({ node, ...props }) {
+    return (
+      <div className="markdown-table">
+        <table {...props} />
+      </div>
+    );
+  },
   pre({ node, children }) {
     const child = React.Children.toArray(children).find(React.isValidElement);
     const className = child?.props?.className ?? "";
