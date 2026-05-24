@@ -1509,6 +1509,10 @@ button:focus-visible {
   height: auto;
 }
 
+.markdown-body .mermaid-frame + * {
+  margin-top: 40px;
+}
+
 .mermaid-frame .node rect,
 .mermaid-frame .node polygon,
 .mermaid-frame .node circle,
