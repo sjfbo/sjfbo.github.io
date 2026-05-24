@@ -587,7 +587,7 @@ runtime.
 Export command:
 
 ```sh
-.venv/bin/python tools/export_t3m.py \
+.venv/bin/python tools/export_model.py \
   --preset nds \
   --checkpoint checkpoints/tinystories/nds-best.pt \
   --quant q8 \
