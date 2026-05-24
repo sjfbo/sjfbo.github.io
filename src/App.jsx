@@ -882,6 +882,54 @@ function ArticleRow({ article }) {
   );
 }
 
+function ArticleFeaturePanel({ feature }) {
+  if (!feature) return null;
+
+  return (
+    <section className="article-brief" aria-label={feature.label ?? "Article context"}>
+      <div className="article-brief-copy">
+        {feature.label ? <p className="article-brief-label">{feature.label}</p> : null}
+        <h2>{feature.title}</h2>
+        {feature.summary ? <p>{feature.summary}</p> : null}
+      </div>
+
+      {feature.stats?.length ? (
+        <dl className="article-stat-grid">
+          {feature.stats.map((item) => (
+            <div className="article-stat" key={`${item.label}-${item.value}`}>
+              <dt>{item.label}</dt>
+              <dd>
+                <strong>{item.value}</strong>
+                <span>{item.detail}</span>
+              </dd>
+            </div>
+          ))}
+        </dl>
+      ) : null}
+
+      {feature.pressure?.length ? (
+        <div className="article-pressure-grid">
+          {feature.pressure.map((item) => (
+            <div className="article-pressure" key={`${item.label}-${item.value}`}>
+              <span>{item.label}</span>
+              <strong>{item.value}</strong>
+              <p>{item.detail}</p>
+            </div>
+          ))}
+        </div>
+      ) : null}
+
+      {feature.flow?.length ? (
+        <ol className="article-flow" aria-label="Build and deployment path">
+          {feature.flow.map((item) => (
+            <li key={item}>{item}</li>
+          ))}
+        </ol>
+      ) : null}
+    </section>
+  );
+}
+
 function ProjectRow({ project }) {
   return (
     <a className="project-row" href={`#/projects/${project.slug}`}>
@@ -1065,6 +1113,7 @@ function ArticlePage({ anchor, slug }) {
         meta={`${formatDate(article.date)} / ${article.readingTime}`}
         summary={article.summary}
       />
+      <ArticleFeaturePanel feature={article.feature} />
       <div className="article-layout">
         <MarkdownArticle source={markdown} tocItems={tocItems} />
         <ArticleToc
