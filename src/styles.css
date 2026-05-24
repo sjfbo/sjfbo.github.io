@@ -1040,13 +1040,17 @@ button:focus-visible {
 
 .markdown-body table {
   display: block;
-  width: 100%;
+  width: max-content;
   max-width: 100%;
   overflow-x: auto;
   margin-top: 26px;
   border-collapse: collapse;
   border: 1px solid var(--line);
   font-family: var(--mono);
+}
+
+.markdown-body table + * {
+  margin-top: 34px;
 }
 
 .markdown-body th,
