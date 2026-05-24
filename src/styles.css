@@ -1032,6 +1032,11 @@ button:focus-visible {
   padding-left: 22px;
 }
 
+.markdown-body ul + p,
+.markdown-body ol + p {
+  margin-top: 30px;
+}
+
 .markdown-body blockquote {
   margin: 28px 0 0;
   padding: 0 0 0 22px;
@@ -1086,6 +1091,10 @@ button:focus-visible {
     linear-gradient(90deg, var(--code-grid-line-soft) 1px, transparent 1px),
     var(--code-bg);
   background-size: 22px 22px, 22px 22px, auto;
+}
+
+.markdown-body p + .code-frame {
+  margin-top: 14px;
 }
 
 .code-frame figcaption {
