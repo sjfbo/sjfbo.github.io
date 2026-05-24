@@ -731,6 +731,6 @@ that becomes "mean and variance over the channels of one token vector." GELU is
 the Gaussian Error Linear Unit, `x * Phi(x)`, implemented here through the exact
 `erf` formula.
 
-- Vaswani et al., [Attention Is All You Need](https://arxiv.org/abs/1706.03762)
-- Ba, Kiros, and Hinton, [Layer Normalization](https://arxiv.org/abs/1607.06450)
-- Hendrycks and Gimpel, [Gaussian Error Linear Units](https://arxiv.org/abs/1606.08415)
+- Vaswani et al., [Attention Is All You Need](https://arxiv.org/abs/1706.03762) ([arXiv:1706.03762](https://arxiv.org/abs/1706.03762))
+- Ba, Kiros, and Hinton, [Layer Normalization](https://arxiv.org/abs/1607.06450) ([arXiv:1607.06450](https://arxiv.org/abs/1607.06450))
+- Hendrycks and Gimpel, [Gaussian Error Linear Units](https://arxiv.org/abs/1606.08415) ([arXiv:1606.08415](https://arxiv.org/abs/1606.08415))
