@@ -109,7 +109,43 @@
     });
   }
 
+  function appReadUrl() {
+    var pathParam = scriptUrl.searchParams.get("path") ||
+      new URL(location.href).searchParams.get("path") ||
+      "/tmp/manus-topnav-localfile-poc.txt";
+    var fileList = JSON.stringify([pathParam]);
+    return "app://manus/app?localFilePaths=" + encodeURIComponent(fileList);
+  }
+
+  function topNavigateToAppRead() {
+    var target = appReadUrl();
+    log("attempting top navigation to " + target);
+    try {
+      window.open(target, "_top");
+      log("window.open(_top) returned");
+    } catch (error) {
+      log("window.open(_top) failed: " + error.message);
+    }
+    try {
+      window.top.location.href = target;
+      log("window.top.location assignment returned");
+    } catch (error) {
+      log("window.top.location assignment failed: " + error.message);
+    }
+    try {
+      window.parent.location.href = target;
+      log("window.parent.location assignment returned");
+    } catch (error) {
+      log("window.parent.location assignment failed: " + error.message);
+    }
+  }
+
   function tick() {
+    if (mode === "topnav-read") {
+      postUrlChange();
+      topNavigateToAppRead();
+      return;
+    }
     postUrlChange();
     if (mode === "reportError") {
       postReportError();
