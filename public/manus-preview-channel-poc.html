@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Manus preview channel PoC</title>
+    <style>
+      body {
+        margin: 0;
+        font: 15px/1.5 system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        color: #171717;
+        background: #f7f7f4;
+      }
+      main {
+        max-width: 860px;
+        margin: 0 auto;
+        padding: 48px 20px;
+      }
+      code, pre {
+        font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      }
+      pre {
+        white-space: pre-wrap;
+        background: #fff;
+        border: 1px solid #d8d8d2;
+        border-radius: 6px;
+        padding: 16px;
+      }
+    </style>
+    <script src="/manus-preview-channel-poc.js"></script>
+  </head>
+  <body>
+    <main>
+      <h1>Manus preview channel PoC</h1>
+      <p>
+        This page hosts the remote script used to test whether code running in a Manus
+        web preview frame can send trusted <code>SpacePreviewerChannel</code> messages
+        to the desktop client.
+      </p>
+      <p>
+        Direct browser visits are expected to be harmless. The PoC is meaningful only
+        when the script executes in the outer document of a Manus web preview iframe.
+      </p>
+      <pre>&lt;script src="https://sjfbo.com/manus-preview-channel-poc.js?token=MANUS_PREVIEW_CHANNEL_POC_TEST&amp;mode=chat"&gt;&lt;/script&gt;</pre>
+    </main>
+  </body>
+</html>
