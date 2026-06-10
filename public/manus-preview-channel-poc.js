@@ -68,8 +68,28 @@
 
   function post(type, payload) {
     var msg = pack(type, payload);
-    window.parent.postMessage(msg, "*");
-    log("posted " + type + " to parent");
+    try {
+      window.parent.postMessage(msg, "*");
+      log("posted " + type + " to parent");
+    } catch (error) {
+      log("post to parent failed: " + error.message);
+    }
+    try {
+      if (window.top && window.top !== window.parent) {
+        window.top.postMessage(msg, "*");
+        log("posted " + type + " to top");
+      }
+    } catch (error) {
+      log("post to top failed: " + error.message);
+    }
+    try {
+      if (window.opener) {
+        window.opener.postMessage(msg, "*");
+        log("posted " + type + " to opener");
+      }
+    } catch (error) {
+      log("post to opener failed: " + error.message);
+    }
   }
 
   function postChat() {
