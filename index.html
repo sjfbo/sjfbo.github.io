@@ -1,28 +1,797 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-theme="dark">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta
       name="description"
       content="sjfbo writes and builds at the intersection of software engineering, machine learning, and mathematics."
     />
-    <meta name="theme-color" content="#030304" />
-    <title>sjfbo</title>
-    <script>
-      (() => {
-        try {
-          const theme = localStorage.getItem("sjfbo-theme");
-          if (theme === "light" || theme === "dark") {
-            document.documentElement.dataset.theme = theme;
-            document.documentElement.style.colorScheme = theme;
-          }
-        } catch {}
-      })();
-    </script>
+    <meta name="theme-color" content="#0e100e" />
+    <title>@sjfbo</title>
+    <style>
+      :root {
+        color-scheme: dark;
+        --page: #0e100e;
+        --ink: #f1eee5;
+        --muted: #aaa49a;
+        --soft: #7f796f;
+        --line: rgba(241, 238, 229, 0.14);
+        --accent: #64c7b7;
+        --accent-ink: #91e4d7;
+        --link-underline: rgba(145, 228, 215, 0.32);
+        --sync-glow: rgba(100, 199, 183, 0.16);
+        --table-head: rgba(100, 199, 183, 0.075);
+        --table-stripe: rgba(255, 255, 255, 0.025);
+      }
+
+      :root[data-theme="light"] {
+        color-scheme: light;
+        --page: #eef1ee;
+        --ink: #171614;
+        --muted: #625f59;
+        --soft: #817c74;
+        --line: rgba(31, 29, 25, 0.14);
+        --accent: #0f756b;
+        --accent-ink: #0b5b54;
+        --link-underline: rgba(15, 117, 107, 0.35);
+        --sync-glow: rgba(15, 117, 107, 0.12);
+        --table-head: rgba(15, 117, 107, 0.055);
+        --table-stripe: rgba(31, 29, 25, 0.025);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html {
+        background: var(--page);
+      }
+
+      body {
+        background: var(--page);
+        color: var(--ink);
+        font-family:
+          Inter,
+          ui-sans-serif,
+          system-ui,
+          -apple-system,
+          BlinkMacSystemFont,
+          "Segoe UI",
+          sans-serif;
+        font-size: 16px;
+        line-height: 1.55;
+        margin: 0;
+        min-height: 100vh;
+        overflow-x: hidden;
+      }
+
+      a {
+        color: var(--accent-ink);
+        text-decoration-color: var(--link-underline);
+        text-decoration-thickness: 1px;
+        text-underline-offset: 0.18em;
+      }
+
+      a:hover {
+        color: var(--accent);
+        text-decoration-color: currentColor;
+      }
+
+      .sr-only {
+        border: 0;
+        clip: rect(0, 0, 0, 0);
+        height: 1px;
+        margin: -1px;
+        overflow: hidden;
+        padding: 0;
+        position: absolute;
+        white-space: nowrap;
+        width: 1px;
+      }
+
+      .page-shell {
+        margin: 0 auto;
+        max-width: 46rem;
+        padding: 30px 18px 72px;
+      }
+
+      .site-header {
+        align-items: center;
+        display: flex;
+        gap: 24px;
+        justify-content: space-between;
+        margin-bottom: clamp(22px, 3vw, 32px);
+      }
+
+      .identity {
+        align-items: center;
+        display: flex;
+        gap: 18px;
+        min-width: 0;
+      }
+
+      .avatar {
+        border: 1px solid var(--line);
+        border-radius: 50%;
+        display: block;
+        height: 72px;
+        object-fit: cover;
+        width: 72px;
+      }
+
+      h1,
+      h2,
+      h3,
+      p {
+        margin-top: 0;
+      }
+
+      h1 {
+        font-family: Georgia, "Times New Roman", serif;
+        font-size: 1.92rem;
+        font-weight: 500;
+        letter-spacing: 0;
+        line-height: 0.95;
+        margin-bottom: 0;
+      }
+
+      .tagline {
+        color: var(--muted);
+        font-size: 0.82rem;
+        letter-spacing: 0;
+        margin: 0.4rem 0 0;
+      }
+
+      .site-nav {
+        align-items: center;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        justify-content: flex-end;
+      }
+
+      .site-nav a {
+        color: var(--muted);
+        font-family:
+          ui-monospace,
+          "SFMono-Regular",
+          "Roboto Mono",
+          "Cascadia Code",
+          monospace;
+        font-size: 0.74rem;
+        letter-spacing: 0.06em;
+        text-decoration: none;
+        text-transform: uppercase;
+      }
+
+      .site-nav a:hover {
+        color: var(--ink);
+      }
+
+      .theme-toggle {
+        align-items: center;
+        background: transparent;
+        border: 0;
+        border-radius: 50%;
+        color: var(--muted);
+        cursor: pointer;
+        display: inline-flex;
+        height: 24px;
+        justify-content: center;
+        padding: 0;
+        width: 24px;
+      }
+
+      .theme-toggle:hover {
+        color: var(--ink);
+      }
+
+      .theme-toggle svg {
+        display: block;
+        height: 14px;
+        width: 14px;
+      }
+
+      .intro {
+        margin-bottom: clamp(18px, 3vw, 24px);
+      }
+
+      .intro p {
+        color: var(--muted);
+        font-size: 0.92rem;
+        line-height: 1.5;
+        margin: 0;
+        max-width: 34rem;
+      }
+
+      .note-meta {
+        align-items: center;
+        color: var(--soft);
+        display: flex;
+        flex-wrap: wrap;
+        font-size: 0.72rem;
+        gap: 0.45rem;
+        letter-spacing: 0.08em;
+        margin-top: 0.65rem;
+        text-transform: uppercase;
+      }
+
+      .note-meta .separator {
+        color: var(--line);
+      }
+
+      .note-meta > span {
+        flex-shrink: 0;
+      }
+
+      .sync-state {
+        align-items: center;
+        color: var(--accent-ink);
+        display: flex;
+        gap: 7px;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+
+      .sync-state::before {
+        background: var(--accent);
+        border-radius: 50%;
+        box-shadow: 0 0 0 3px var(--sync-glow);
+        content: "";
+        height: 7px;
+        width: 7px;
+      }
+
+      .notes-frame {
+        border-top: 1px solid var(--line);
+        margin: 0;
+        padding-top: clamp(18px, 3vw, 24px);
+      }
+
+      .notes-body {
+        min-height: 360px;
+        padding: 0;
+      }
+
+      .doc-content {
+        color: var(--ink);
+        font-size: 1rem;
+        line-height: 1.66;
+        max-width: 100%;
+      }
+
+      .doc-content[data-state="loading"] {
+        color: var(--soft);
+      }
+
+      .doc-content > :first-child {
+        margin-top: 0;
+      }
+
+      .doc-content > :last-child {
+        margin-bottom: 0;
+      }
+
+      .doc-content h1,
+      .doc-content h2,
+      .doc-content h3,
+      .doc-content h4,
+      .doc-content h5,
+      .doc-content h6 {
+        color: var(--ink);
+        font-family: Georgia, "Times New Roman", serif;
+        font-weight: 500;
+        letter-spacing: 0;
+        line-height: 1.08;
+        margin: 2rem 0 0.65rem;
+      }
+
+      .doc-content h1 {
+        font-size: clamp(2.05rem, 7vw, 3.2rem);
+      }
+
+      .doc-content h2 {
+        font-size: clamp(1.62rem, 5vw, 2.2rem);
+      }
+
+      .doc-content h3 {
+        font-size: clamp(1.28rem, 4vw, 1.62rem);
+      }
+
+      .doc-content p,
+      .doc-content ul,
+      .doc-content ol,
+      .doc-content table,
+      .doc-content blockquote {
+        margin: 0 0 1rem;
+      }
+
+      .doc-content a {
+        color: var(--accent-ink);
+      }
+
+      .doc-content img {
+        border-radius: 4px;
+        display: block;
+        height: auto !important;
+        margin: 0;
+        max-width: 100%;
+        object-fit: contain;
+      }
+
+      .doc-content .doc-media {
+        margin: 1.45rem 0 1.8rem;
+      }
+
+      .doc-content .doc-media img {
+        width: min(100%, 560px) !important;
+      }
+
+      .doc-content ul,
+      .doc-content ol {
+        padding-left: 1.35rem;
+      }
+
+      .doc-content blockquote {
+        border-left: 2px solid var(--accent);
+        color: var(--muted);
+        margin-left: 0;
+        padding-left: 1rem;
+      }
+
+      .doc-content table {
+        border-collapse: collapse;
+        border: 1px solid var(--line);
+        max-width: 100%;
+        table-layout: fixed;
+        width: 100%;
+      }
+
+      .doc-content td,
+      .doc-content th {
+        border: 1px solid var(--line);
+        overflow-wrap: anywhere;
+        padding: 0.85rem 0.95rem;
+        text-align: left;
+        vertical-align: top;
+      }
+
+      .doc-content th {
+        background: var(--table-head);
+        font-weight: 650;
+      }
+
+      .doc-content tr:nth-child(even) td {
+        background: var(--table-stripe);
+      }
+
+      .doc-error {
+        color: var(--muted);
+        max-width: 42rem;
+      }
+
+      .site-footer {
+        align-items: center;
+        border-top: 1px solid var(--line);
+        color: var(--soft);
+        display: flex;
+        flex-wrap: wrap;
+        font-size: 0.82rem;
+        gap: 0.5rem;
+        justify-content: space-between;
+        margin-top: 56px;
+        padding-top: 18px;
+      }
+
+      .site-footer a {
+        color: var(--soft);
+        text-decoration: none;
+      }
+
+      .site-footer a:hover {
+        color: var(--ink);
+      }
+
+      .footer-links {
+        align-items: center;
+        display: flex;
+        gap: 0.5rem;
+      }
+
+      @media (max-width: 760px) {
+        .page-shell {
+          padding: 24px 18px 52px;
+        }
+
+        .site-header {
+          display: block;
+          margin-bottom: 26px;
+        }
+
+        .site-nav {
+          justify-content: flex-start;
+          padding-top: 16px;
+        }
+
+        .intro {
+          margin-bottom: 24px;
+        }
+
+        .intro p {
+          max-width: 34rem;
+        }
+
+        .doc-content h1 {
+          font-size: clamp(2rem, 11vw, 3rem);
+        }
+      }
+    </style>
   </head>
   <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.jsx"></script>
+    <div class="page-shell">
+      <header class="site-header">
+        <div class="identity">
+          <img class="avatar" src="/assets/avatar.png" alt="" width="512" height="512" />
+          <div>
+            <h1>@sjfbo</h1>
+            <p class="tagline">systems / software / learning</p>
+          </div>
+        </div>
+        <nav class="site-nav" aria-label="primary">
+          <a href="https://github.com/sjfbo">github</a>
+          <a href="https://x.com/sjfbo">x</a>
+          <button id="themeToggle" class="theme-toggle" type="button" aria-label="Use light mode">
+            <svg aria-hidden="true" viewBox="0 0 24 24" fill="none">
+              <path d="M12 3v2.2M12 18.8V21M4.6 4.6l1.6 1.6M17.8 17.8l1.6 1.6M3 12h2.2M18.8 12H21M4.6 19.4l1.6-1.6M17.8 6.2l1.6-1.6" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" />
+              <circle cx="12" cy="12" r="4.2" stroke="currentColor" stroke-width="1.7" />
+            </svg>
+          </button>
+        </nav>
+      </header>
+
+      <main>
+        <section class="intro" aria-labelledby="intro-heading">
+          <h2 id="intro-heading" class="sr-only">raw notes</h2>
+          <p>
+            Raw thoughts, unedited writing, implementation details, research fragments, and systems
+            thinking. Not really meant to be read cleanly.
+          </p>
+          <div class="note-meta" aria-label="site context">
+            <span id="contentUpdated">updated checking</span>
+            <span class="separator">/</span>
+            <span id="liveState" class="sync-state" aria-live="polite">syncing</span>
+          </div>
+        </section>
+
+        <section id="notes" class="notes-frame" aria-labelledby="notes-heading">
+          <div class="notes-body">
+            <h2 id="notes-heading" class="sr-only">notes</h2>
+            <article
+              id="notesDocument"
+              class="doc-content"
+              data-state="loading"
+              data-export-url="https://docs.google.com/document/d/1r8rZdxVzWQly74vR8Eq8vQGfumGNpYEMKRdyXPJx7eA/export?format=html"
+            >
+              Loading notes...
+            </article>
+          </div>
+        </section>
+      </main>
+
+      <footer class="site-footer">
+        <span>made with love in europe</span>
+        <span class="footer-links" aria-label="secondary links">
+          <a href="https://github.com/sjfbo">github</a>
+          <span>/</span>
+          <a href="https://x.com/sjfbo">x</a>
+        </span>
+      </footer>
+    </div>
+
+    <script>
+      (function setupThemeToggle() {
+        const STORAGE_KEY = "sjfbo-theme";
+        const root = document.documentElement;
+        const toggle = document.getElementById("themeToggle");
+        const themeMeta = document.querySelector('meta[name="theme-color"]');
+
+        function applyTheme(theme) {
+          const nextTheme = theme === "light" ? "light" : "dark";
+          root.dataset.theme = nextTheme;
+          root.style.colorScheme = nextTheme;
+          if (themeMeta) {
+            themeMeta.setAttribute("content", nextTheme === "dark" ? "#0e100e" : "#eef1ee");
+          }
+          if (toggle) {
+            toggle.setAttribute(
+              "aria-label",
+              nextTheme === "dark" ? "Use light mode" : "Use dark mode"
+            );
+          }
+        }
+
+        try {
+          applyTheme(window.localStorage.getItem(STORAGE_KEY) || "dark");
+        } catch {
+          applyTheme("dark");
+        }
+
+        if (!toggle) return;
+
+        toggle.addEventListener("click", () => {
+          const nextTheme = root.dataset.theme === "dark" ? "light" : "dark";
+          applyTheme(nextTheme);
+          try {
+            window.localStorage.setItem(STORAGE_KEY, nextTheme);
+          } catch {
+            // Theme still changes for the current page when storage is unavailable.
+          }
+        });
+      })();
+
+      (function renderNotesFromDocumentExport() {
+        const target = document.getElementById("notesDocument");
+        const liveState = document.getElementById("liveState");
+        const contentUpdated = document.getElementById("contentUpdated");
+        const exportUrl = target && target.getAttribute("data-export-url");
+        if (!target || !exportUrl || !window.fetch || !window.DOMParser) return;
+
+        const CONTENT_HASH_KEY = "sjfbo-notes-content-hash";
+        const CONTENT_UPDATED_KEY = "sjfbo-notes-content-updated-at";
+        const REFRESH_MS = 5000;
+        const FETCH_TIMEOUT_MS = 12000;
+        const GOOGLE_DOC_URL =
+          "https://docs.google.com/document/d/1r8rZdxVzWQly74vR8Eq8vQGfumGNpYEMKRdyXPJx7eA/edit";
+        let lastHtml = "";
+        let lastContentSignature = "";
+        let inFlight = null;
+
+        function setStatus(value) {
+          liveState.textContent = value;
+        }
+
+        function readStoredValue(key) {
+          try {
+            return window.localStorage.getItem(key);
+          } catch {
+            return "";
+          }
+        }
+
+        function writeStoredValue(key, value) {
+          try {
+            window.localStorage.setItem(key, value);
+          } catch {
+            // The page still works when storage is unavailable.
+          }
+        }
+
+        function formatContentTimestamp(value) {
+          const timestamp = Number(value);
+          if (!timestamp) return "updated checking";
+
+          const date = new Date(timestamp);
+          const today = new Date();
+          const sameDay = date.toDateString() === today.toDateString();
+          const options = sameDay
+            ? { hour: "2-digit", minute: "2-digit", second: "2-digit", hour12: false }
+            : {
+                month: "short",
+                day: "numeric",
+                hour: "2-digit",
+                minute: "2-digit",
+                hour12: false
+              };
+
+          return "updated " + new Intl.DateTimeFormat(undefined, options).format(date);
+        }
+
+        function setContentUpdated(value) {
+          if (!contentUpdated) return;
+          contentUpdated.textContent = formatContentTimestamp(value);
+        }
+
+        function hashString(value) {
+          let hash = 2166136261;
+          for (let index = 0; index < value.length; index += 1) {
+            hash ^= value.charCodeAt(index);
+            hash = Math.imul(hash, 16777619);
+          }
+          return (hash >>> 0).toString(36);
+        }
+
+        function normalizeUrlForSignature(value) {
+          if (!value) return "";
+          try {
+            const url = new URL(value, "https://docs.google.com/");
+            return url.origin + url.pathname;
+          } catch {
+            return value;
+          }
+        }
+
+        function getContentSignature(renderedHtml) {
+          const parsed = new DOMParser().parseFromString(renderedHtml, "text/html");
+          parsed.body.querySelectorAll("img").forEach((image) => {
+            image.setAttribute("src", normalizeUrlForSignature(image.getAttribute("src")));
+          });
+          parsed.body.querySelectorAll("a").forEach((link) => {
+            link.setAttribute("href", normalizeUrlForSignature(link.getAttribute("href")));
+          });
+          return hashString(parsed.body.innerHTML.replace(/\s+/g, " ").trim());
+        }
+
+        function updateContentTimestamp(contentSignature) {
+          const storedHash = readStoredValue(CONTENT_HASH_KEY);
+          let storedUpdatedAt = readStoredValue(CONTENT_UPDATED_KEY);
+
+          if (!storedHash || storedHash !== contentSignature) {
+            storedUpdatedAt = String(Date.now());
+            writeStoredValue(CONTENT_HASH_KEY, contentSignature);
+            writeStoredValue(CONTENT_UPDATED_KEY, storedUpdatedAt);
+          }
+
+          setContentUpdated(storedUpdatedAt);
+        }
+
+        function hasSafeProtocol(value, protocols) {
+          try {
+            const url = new URL(value, "https://docs.google.com/");
+            return protocols.includes(url.protocol);
+          } catch {
+            return false;
+          }
+        }
+
+        function hasSafeImageSource(value) {
+          if (!value) return false;
+          if (value.startsWith("data:")) return /^data:image\//i.test(value);
+          return hasSafeProtocol(value, ["http:", "https:"]);
+        }
+
+        function unwrapElement(element) {
+          const parent = element.parentNode;
+          if (!parent) return;
+
+          while (element.firstChild) {
+            parent.insertBefore(element.firstChild, element);
+          }
+          element.remove();
+        }
+
+        function cleanExportedDocument(html) {
+          const parsed = new DOMParser().parseFromString(html, "text/html");
+          const body = parsed.body;
+          body.querySelectorAll("script, style, iframe, object, embed, form, meta, link").forEach((el) => {
+            el.remove();
+          });
+
+          body.querySelectorAll("span").forEach((span) => {
+            unwrapElement(span);
+          });
+
+          body.querySelectorAll("*").forEach((element) => {
+            Array.from(element.attributes).forEach((attribute) => {
+              const name = attribute.name.toLowerCase();
+              if (name.startsWith("on")) {
+                element.removeAttribute(attribute.name);
+              }
+            });
+
+            element.removeAttribute("class");
+            element.removeAttribute("style");
+
+            if (element.tagName === "A") {
+              const href = element.getAttribute("href");
+              if (!href || !hasSafeProtocol(href, ["http:", "https:", "mailto:"])) {
+                unwrapElement(element);
+                return;
+              }
+              element.setAttribute("target", "_blank");
+              element.setAttribute("rel", "noopener noreferrer");
+            }
+
+            if (element.tagName === "IMG") {
+              const src = element.getAttribute("src");
+              if (!hasSafeImageSource(src)) {
+                element.remove();
+                return;
+              }
+              element.setAttribute("loading", "lazy");
+              element.setAttribute("decoding", "async");
+            }
+          });
+
+          body.querySelectorAll("p, div").forEach((element) => {
+            const hasMedia = element.querySelector("img, video, iframe, table");
+            if (hasMedia) {
+              element.classList.add("doc-media");
+              return;
+            }
+
+            if (!element.textContent.trim()) {
+              element.remove();
+            }
+          });
+
+          return body.innerHTML.trim();
+        }
+
+        async function fetchExportHtml() {
+          const controller = new AbortController();
+          const timeout = window.setTimeout(() => controller.abort(), FETCH_TIMEOUT_MS);
+          try {
+            const response = await fetch(exportUrl, {
+              cache: "no-store",
+              credentials: "omit",
+              signal: controller.signal
+            });
+
+            if (!response.ok) {
+              throw new Error("Document request failed: " + response.status);
+            }
+
+            return await response.text();
+          } finally {
+            window.clearTimeout(timeout);
+          }
+        }
+
+        function renderError() {
+          target.dataset.state = "error";
+          target.classList.add("doc-error");
+          target.innerHTML =
+            '<p>The notes could not be loaded in this browser. <a href="' +
+            GOOGLE_DOC_URL +
+            '">Open the working document</a>.</p>';
+          setStatus("offline");
+        }
+
+        setContentUpdated(readStoredValue(CONTENT_UPDATED_KEY));
+
+        async function refreshNotes(forceRender) {
+          if (document.visibilityState === "hidden" || inFlight) return;
+
+          inFlight = fetchExportHtml()
+            .then((html) => {
+              if (!forceRender && html === lastHtml) {
+                setStatus("synced");
+                return;
+              }
+
+              const renderedHtml = cleanExportedDocument(html);
+              if (!renderedHtml) {
+                throw new Error("Document export was empty.");
+              }
+
+              const contentSignature = getContentSignature(renderedHtml);
+              if (!forceRender && contentSignature === lastContentSignature) {
+                lastHtml = html;
+                setStatus("synced");
+                return;
+              }
+
+              lastHtml = html;
+              lastContentSignature = contentSignature;
+              updateContentTimestamp(contentSignature);
+              target.classList.remove("doc-error");
+              target.dataset.state = "ready";
+              target.innerHTML = renderedHtml;
+              setStatus("synced");
+            })
+            .catch(renderError)
+            .finally(() => {
+              inFlight = null;
+            });
+
+          await inFlight;
+        }
+
+        refreshNotes(true);
+        window.setInterval(() => refreshNotes(false), REFRESH_MS);
+        document.addEventListener("visibilitychange", () => refreshNotes(false));
+      })();
+    </script>
   </body>
 </html>
